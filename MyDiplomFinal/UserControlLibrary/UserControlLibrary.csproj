@@ -48,11 +48,20 @@
     <Compile Include="MyFormUserControl1.Designer.cs">
       <DependentUpon>MyFormUserControl1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyFormUserControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyFormUserControl2.Designer.cs">
+      <DependentUpon>MyFormUserControl2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyFormUserControl1.resx">
       <DependentUpon>MyFormUserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyFormUserControl2.resx">
+      <DependentUpon>MyFormUserControl2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

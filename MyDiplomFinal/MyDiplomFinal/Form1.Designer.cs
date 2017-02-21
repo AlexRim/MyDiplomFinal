@@ -30,13 +30,15 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.расчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.клиентыToolStripMenuItem});
+            this.клиентыToolStripMenuItem,
+            this.расчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
@@ -49,6 +51,13 @@
             this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.клиентыToolStripMenuItem.Text = "клиенты";
             this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
+            // 
+            // расчетыToolStripMenuItem
+            // 
+            this.расчетыToolStripMenuItem.Name = "расчетыToolStripMenuItem";
+            this.расчетыToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.расчетыToolStripMenuItem.Text = "расчеты";
+            this.расчетыToolStripMenuItem.Click += new System.EventHandler(this.расчетыToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -70,6 +79,7 @@
 
         public System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem клиентыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem расчетыToolStripMenuItem;
     }
 }
 
