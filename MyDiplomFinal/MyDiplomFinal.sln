@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDiplomFinal", "MyDiplomFi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlLibrary", "UserControlLibrary\UserControlLibrary.csproj", "{5ABF09AE-E1F0-42D9-9BFD-2A0B1D69295C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityDataBaseLibrary", "EntityDataBaseLibrary\EntityDataBaseLibrary.csproj", "{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5ABF09AE-E1F0-42D9-9BFD-2A0B1D69295C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ABF09AE-E1F0-42D9-9BFD-2A0B1D69295C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ABF09AE-E1F0-42D9-9BFD-2A0B1D69295C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
