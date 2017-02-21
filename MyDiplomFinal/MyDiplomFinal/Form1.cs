@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlLibrary;
+using  EntityDataBaseLibrary;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
 
 
 namespace MyDiplomFinal
@@ -44,6 +48,14 @@ namespace MyDiplomFinal
             this.Controls.Add(userControl1);
             userControl1.Top = 25;
             userControl1.Left = 0;
+
+            using (var gb = new DBContainer())
+            {
+                userControl1.dataGridView1_Client.DataSource =
+                    gb.ClientSet.Select(a => new {id = a.ClientID, name = a.ClientName, adress = a.ClientAdress})
+                        .ToList();
+            }
+
         }
 
         private void расчетыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,6 +65,7 @@ namespace MyDiplomFinal
             this.Controls.Add(userControl2);
             userControl1.Top = 25;
             userControl1.Left = 0;
+    
         }
     }
 }
