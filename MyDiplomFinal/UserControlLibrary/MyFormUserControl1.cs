@@ -77,5 +77,61 @@ namespace UserControlLibrary
 
             }
         }
+        //event deletes client
+        private async void button1_DeleClient_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены что хотите удалить клиента?", "Внимание!", MessageBoxButtons.YesNo,
+   MessageBoxIcon.Question);
+            if (result == DialogResult.No)
+                return;
+            using (var gb = new DBContainer())
+            {
+                var client = await gb.ClientSet.FindAsync(FindClientID());
+                gb.ClientSet.Remove(client);
+                gb.SaveChanges();
+            }
+            RefreshClientDataView();
+            MessageBox.Show("Клиент удален успешно!");
+        }
+        // event changes clents information
+        private async void button1_ChangeClient_Click(object sender, EventArgs e)
+        {
+            var add =  new ClientDialog();
+            add.Text = "Редактировать клиента";
+            var client = new Client();
+            using (var gb = new DBContainer())
+            {
+                client = await gb.ClientSet.FindAsync(FindClientID());
+                add.textBox1_ClientName.Text = client.ClientName;
+                add.textBox_ClintPhone.Text = client.ClientPhonePhax;
+                add.textBox1_ClientAdress.Text = client.ClientAdress;
+                add.textBox_ClientUNN.Text = client.ClientUNN;
+                add.textBox_ClientPassport.Text = client.ClientPassport;
+
+                if (add.ShowDialog() == DialogResult.OK)
+                {
+
+                    client.ClientUNN = add.textBox_ClientUNN.Text;
+                    client.ClientPassport = add.textBox_ClientPassport.Text;
+                    client.ClientPhonePhax = add.textBox_ClintPhone.Text;
+                    client.ClientAdress = add.textBox1_ClientAdress.Text;
+                    client.ClientName = add.textBox1_ClientName.Text;
+
+                }
+                var result = MessageBox.Show("Вы уверены что хотите сохранить изменения?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Данные о клиенте успешно изменены");
+                }
+
+                await gb.SaveChangesAsync();
+
+                RefreshClientDataView();
+            }
+        }
     }
 }

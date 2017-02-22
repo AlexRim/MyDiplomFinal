@@ -30,6 +30,8 @@
         {
             this.dataGridView1_Client = new System.Windows.Forms.DataGridView();
             this.button1_AddClient = new System.Windows.Forms.Button();
+            this.button1_DeleClient = new System.Windows.Forms.Button();
+            this.button1_ChangeClient = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_Client)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,11 +55,33 @@
             this.button1_AddClient.UseVisualStyleBackColor = true;
             this.button1_AddClient.Click += new System.EventHandler(this.button1_AddClient_Click);
             // 
+            // button1_DeleClient
+            // 
+            this.button1_DeleClient.Location = new System.Drawing.Point(742, 73);
+            this.button1_DeleClient.Name = "button1_DeleClient";
+            this.button1_DeleClient.Size = new System.Drawing.Size(75, 23);
+            this.button1_DeleClient.TabIndex = 2;
+            this.button1_DeleClient.Text = "Удалить клиента";
+            this.button1_DeleClient.UseVisualStyleBackColor = true;
+            this.button1_DeleClient.Click += new System.EventHandler(this.button1_DeleClient_Click);
+            // 
+            // button1_ChangeClient
+            // 
+            this.button1_ChangeClient.Location = new System.Drawing.Point(742, 102);
+            this.button1_ChangeClient.Name = "button1_ChangeClient";
+            this.button1_ChangeClient.Size = new System.Drawing.Size(75, 23);
+            this.button1_ChangeClient.TabIndex = 3;
+            this.button1_ChangeClient.Text = "Редакт. клиента";
+            this.button1_ChangeClient.UseVisualStyleBackColor = true;
+            this.button1_ChangeClient.Click += new System.EventHandler(this.button1_ChangeClient_Click);
+            // 
             // MyFormUserControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.button1_ChangeClient);
+            this.Controls.Add(this.button1_DeleClient);
             this.Controls.Add(this.button1_AddClient);
             this.Controls.Add(this.dataGridView1_Client);
             this.Name = "MyFormUserControl1";
@@ -71,5 +95,7 @@
 
         public System.Windows.Forms.DataGridView dataGridView1_Client;
         public System.Windows.Forms.Button button1_AddClient;
+        public System.Windows.Forms.Button button1_DeleClient;
+        public System.Windows.Forms.Button button1_ChangeClient;
     }
 }

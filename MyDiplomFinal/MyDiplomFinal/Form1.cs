@@ -41,7 +41,7 @@ namespace MyDiplomFinal
         {
             InitializeComponent();
         }
-
+        // shows clients usercontrol
         private async void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeUserControl(userControl1, userControl2);
@@ -59,14 +59,14 @@ namespace MyDiplomFinal
             }
 
         }
-
+        //shows counts usercontrol
         private void расчетыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeUserControl(userControl1, userControl2);
             userControl2 = new MyFormUserControl2();
             this.Controls.Add(userControl2);
-            userControl1.Top = 25;
-            userControl1.Left = 0;
+            userControl2.Top = 25;
+            userControl2.Left = 0;
     
         }
     }
