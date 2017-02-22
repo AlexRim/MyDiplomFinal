@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/21/2017 23:11:13
+-- Date Created: 02/22/2017 22:48:17
 -- Generated from EDMX file: e:\MyDiplomFinal\MyDiplomFinal\EntityDataBaseLibrary\DB.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,44 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_ClientBank]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BankSet] DROP CONSTRAINT [FK_ClientBank];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ClientContract]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ContractSet] DROP CONSTRAINT [FK_ClientContract];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContractTypeOfWork]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TypeOfWorkSet] DROP CONSTRAINT [FK_ContractTypeOfWork];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TypeOfWorkWork]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[WorkSet] DROP CONSTRAINT [FK_TypeOfWorkWork];
+GO
+IF OBJECT_ID(N'[dbo].[FK_WorkMaterial]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MaterialSet] DROP CONSTRAINT [FK_WorkMaterial];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[ClientSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClientSet];
+GO
+IF OBJECT_ID(N'[dbo].[BankSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BankSet];
+GO
+IF OBJECT_ID(N'[dbo].[ContractSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ContractSet];
+GO
+IF OBJECT_ID(N'[dbo].[WorkSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WorkSet];
+GO
+IF OBJECT_ID(N'[dbo].[MaterialSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MaterialSet];
+GO
+IF OBJECT_ID(N'[dbo].[TypeOfWorkSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TypeOfWorkSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -56,7 +89,8 @@ CREATE TABLE [dbo].[ContractSet] (
     [ContractDate] nvarchar(80)  NOT NULL,
     [ContractObject] nvarchar(max)  NOT NULL,
     [ContractPrice] float  NOT NULL,
-    [ClientClientID] int  NULL
+    [ClientClientID] int  NULL,
+    [ContractStatus] nvarchar(50)  NULL
 );
 GO
 

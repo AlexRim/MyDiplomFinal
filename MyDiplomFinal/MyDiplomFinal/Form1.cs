@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlLibrary;
 using  EntityDataBaseLibrary;
+using  DialogFormLibrary;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
@@ -41,7 +42,7 @@ namespace MyDiplomFinal
             InitializeComponent();
         }
 
-        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeUserControl(userControl1, userControl2);
             userControl1 = new MyFormUserControl1();
@@ -52,8 +53,9 @@ namespace MyDiplomFinal
             using (var gb = new DBContainer())
             {
                 userControl1.dataGridView1_Client.DataSource =
-                    gb.ClientSet.Select(a => new {id = a.ClientID, name = a.ClientName, adress = a.ClientAdress})
-                        .ToList();
+               await     gb.ClientSet.Select(a => new {id = a.ClientID, ФИО = a.ClientName, Адрес = a.ClientAdress,УНН=a.ClientUNN,Пасспорт=a.ClientPassport,Тел_Факс=a.ClientPhonePhax})
+                        .ToListAsync();
+                userControl1.dataGridView1_Client.Columns[0].Visible = false;
             }
 
         }

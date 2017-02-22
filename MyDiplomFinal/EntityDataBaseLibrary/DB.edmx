@@ -65,6 +65,7 @@
     <Property Name="ContractObject" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ContractPrice" Type="float" Nullable="false" />
     <Property Name="ClientClientID" Type="int" Nullable="true" />
+    <Property Name="ContractStatus" Type="nvarchar" Nullable="true" MaxLength="50" />
   </EntityType>
   <EntityType Name="WorkSet">
     <Key>
@@ -224,6 +225,7 @@
           <NavigationProperty Name="Client" Relationship="DB.ClientContract" FromRole="Contract" ToRole="Client" />
           <Property Name="ClientClientID" Type="Int32" Nullable="true" />
           <NavigationProperty Name="TypeOfWork" Relationship="DB.ContractTypeOfWork" FromRole="Contract" ToRole="TypeOfWork" />
+          <Property Name="ContractStatus" Type="String" Nullable="true" MaxLength="50" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -350,6 +352,7 @@
           <ScalarProperty Name="ContractObject" ColumnName="ContractObject" />
           <ScalarProperty Name="ContractPrice" ColumnName="ContractPrice" />
           <ScalarProperty Name="ClientClientID" ColumnName="ClientClientID" />
+          <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

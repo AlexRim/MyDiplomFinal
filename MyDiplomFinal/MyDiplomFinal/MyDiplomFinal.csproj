@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DialogFormLibrary">
+      <HintPath>..\DialogFormLibrary\bin\Debug\DialogFormLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="EntityDataBaseLibrary">
       <HintPath>..\EntityDataBaseLibrary\bin\Debug\EntityDataBaseLibrary.dll</HintPath>
     </Reference>

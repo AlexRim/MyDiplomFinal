@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlLibrary", "UserC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityDataBaseLibrary", "EntityDataBaseLibrary\EntityDataBaseLibrary.csproj", "{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogFormLibrary", "DialogFormLibrary\DialogFormLibrary.csproj", "{3F32B9DE-8E89-4E28-BB25-1D1CD1FE8C52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F21D4E23-6086-4F2D-BF6F-8E15B2EE729A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F32B9DE-8E89-4E28-BB25-1D1CD1FE8C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F32B9DE-8E89-4E28-BB25-1D1CD1FE8C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F32B9DE-8E89-4E28-BB25-1D1CD1FE8C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F32B9DE-8E89-4E28-BB25-1D1CD1FE8C52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

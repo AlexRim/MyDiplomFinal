@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5ABF09AE-E1F0-42D9-9BFD-2A0B1D69295C}</ProjectGuid>
+    <ProjectGuid>{3F32B9DE-8E89-4E28-BB25-1D1CD1FE8C52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UserControlLibrary</RootNamespace>
-    <AssemblyName>UserControlLibrary</AssemblyName>
+    <RootNamespace>DialogFormLibrary</RootNamespace>
+    <AssemblyName>DialogFormLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,18 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DialogFormLibrary">
-      <HintPath>..\DialogFormLibrary\bin\Debug\DialogFormLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityDataBaseLibrary">
-      <HintPath>..\EntityDataBaseLibrary\bin\Debug\EntityDataBaseLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\EntityDataBaseLibrary\bin\Debug\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\EntityDataBaseLibrary\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -52,32 +40,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="UserControlLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\UserControlLibrary.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyFormUserControl1.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="ClientDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyFormUserControl1.Designer.cs">
-      <DependentUpon>MyFormUserControl1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MyFormUserControl2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MyFormUserControl2.Designer.cs">
-      <DependentUpon>MyFormUserControl2.cs</DependentUpon>
+    <Compile Include="ClientDialog.Designer.cs">
+      <DependentUpon>ClientDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyFormUserControl1.resx">
-      <DependentUpon>MyFormUserControl1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MyFormUserControl2.resx">
-      <DependentUpon>MyFormUserControl2.cs</DependentUpon>
+    <EmbeddedResource Include="ClientDialog.resx">
+      <DependentUpon>ClientDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
