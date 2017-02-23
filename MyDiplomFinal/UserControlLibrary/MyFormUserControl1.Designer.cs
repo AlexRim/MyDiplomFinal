@@ -32,7 +32,10 @@
             this.button1_AddClient = new System.Windows.Forms.Button();
             this.button1_DeleClient = new System.Windows.Forms.Button();
             this.button1_ChangeClient = new System.Windows.Forms.Button();
+            this.dataGridView_Contract = new System.Windows.Forms.DataGridView();
+            this.button_AddContractToClient = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_Client)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Contract)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1_Client
@@ -44,6 +47,9 @@
             this.dataGridView1_Client.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1_Client.Size = new System.Drawing.Size(697, 150);
             this.dataGridView1_Client.TabIndex = 0;
+            this.dataGridView1_Client.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView1_Client_CellStateChanged);
+            this.dataGridView1_Client.SelectionChanged += new System.EventHandler(this.dataGridView1_Client_SelectionChanged);
+            this.dataGridView1_Client.Click += new System.EventHandler(this.dataGridView1_Client_Click);
             // 
             // button1_AddClient
             // 
@@ -75,11 +81,33 @@
             this.button1_ChangeClient.UseVisualStyleBackColor = true;
             this.button1_ChangeClient.Click += new System.EventHandler(this.button1_ChangeClient_Click);
             // 
+            // dataGridView_Contract
+            // 
+            this.dataGridView_Contract.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_Contract.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Contract.Location = new System.Drawing.Point(39, 216);
+            this.dataGridView_Contract.Name = "dataGridView_Contract";
+            this.dataGridView_Contract.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_Contract.Size = new System.Drawing.Size(697, 150);
+            this.dataGridView_Contract.TabIndex = 4;
+            // 
+            // button_AddContractToClient
+            // 
+            this.button_AddContractToClient.Location = new System.Drawing.Point(743, 132);
+            this.button_AddContractToClient.Name = "button_AddContractToClient";
+            this.button_AddContractToClient.Size = new System.Drawing.Size(75, 23);
+            this.button_AddContractToClient.TabIndex = 5;
+            this.button_AddContractToClient.Text = "Новый договор";
+            this.button_AddContractToClient.UseVisualStyleBackColor = true;
+            this.button_AddContractToClient.Click += new System.EventHandler(this.button_AddContractToClient_Click);
+            // 
             // MyFormUserControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.button_AddContractToClient);
+            this.Controls.Add(this.dataGridView_Contract);
             this.Controls.Add(this.button1_ChangeClient);
             this.Controls.Add(this.button1_DeleClient);
             this.Controls.Add(this.button1_AddClient);
@@ -87,6 +115,7 @@
             this.Name = "MyFormUserControl1";
             this.Size = new System.Drawing.Size(1000, 675);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_Client)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Contract)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -97,5 +126,7 @@
         public System.Windows.Forms.Button button1_AddClient;
         public System.Windows.Forms.Button button1_DeleClient;
         public System.Windows.Forms.Button button1_ChangeClient;
+        public System.Windows.Forms.DataGridView dataGridView_Contract;
+        public System.Windows.Forms.Button button_AddContractToClient;
     }
 }

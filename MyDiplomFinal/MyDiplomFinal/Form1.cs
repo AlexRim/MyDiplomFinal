@@ -56,6 +56,7 @@ namespace MyDiplomFinal
                await     gb.ClientSet.Select(a => new {id = a.ClientID, ФИО = a.ClientName, Адрес = a.ClientAdress,УНН=a.ClientUNN,Пасспорт=a.ClientPassport,Тел_Факс=a.ClientPhonePhax})
                         .ToListAsync();
                 userControl1.dataGridView1_Client.Columns[0].Visible = false;
+               
             }
 
         }

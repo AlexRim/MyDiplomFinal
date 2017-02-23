@@ -19,6 +19,20 @@ namespace UserControlLibrary
 {
     public partial class MyFormUserControl1 : UserControl
     {
+
+        //private int FindClienID2()
+        //{
+        //    int index = dataGridView1_Client.SelectedRows[0].Index;
+        //    int id = 0;
+        //    bool converted = Int32.TryParse(dataGridView1_Client[0, index].Value.ToString(), out id);
+           
+        //        return id;
+           
+        //}
+
+
+
+
         // method refresh ClientDatagrid
         private async void RefreshClientDataView()
         {
@@ -30,6 +44,29 @@ namespace UserControlLibrary
                 dataGridView1_Client.Columns[0].Visible = false;
               
             }
+
+        }
+
+        private async void RefreshContractDataView()
+        {
+            using (var gb = new DBContainer())
+            {
+                dataGridView_Contract.DataSource =
+                    await
+                        gb.ContractSet.Select(
+                            a =>
+                                new
+                                {
+                                    Id = a.ContractID,
+                                    Номер = a.ContractNumber,
+                                    Объект = a.ContractObject,
+                                    Дата = a.ContractDate,
+                                    Цена = a.ContractPrice,
+                                    Статус = a.ContractStatus
+                                }).OrderBy(a => a.Номер).ToListAsync();
+                dataGridView_Contract.Columns[0].Visible = false;
+            }
+
 
         }
         // method returns client ID
@@ -132,6 +169,111 @@ namespace UserControlLibrary
 
                 RefreshClientDataView();
             }
+        }
+        //event adds contract to client
+        private async void button_AddContractToClient_Click(object sender, EventArgs e)
+        {
+            int iD = FindClientID();
+            var add=new AddContractDialog();
+            add.radioButton_Status1.Checked = true;
+            using (var gb = new DBContainer())
+            {
+                var contract=new Contract();
+                var currentClient = await gb.ClientSet.FindAsync(FindClientID());
+                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + currentClient.Contract.Count + 1;
+                add.textBox_ContractDate.Text = DateTime.Now.ToString(@"dd/MM/yyyy");
+                if (add.ShowDialog() == DialogResult.OK)
+                {
+                    contract.ContractDate = add.textBox_ContractDate.Text;
+                    contract.ContractNumber = add.textBox_ContractNumber.Text;
+                    contract.ContractPrice = Convert.ToDouble(add.textBox_ContractPrice.Text);
+                    contract.ContractObject = add.textBox_ContractObject.Text;
+                    foreach (RadioButton radio in add.Controls.OfType<RadioButton>())
+                    {
+                        if (radio.Checked == true)
+                        {
+                            contract.ContractStatus = radio.Text;
+                        }
+                    }
+
+                    var result2 = MessageBox.Show("Вы уверены что хотите сохранить договор?", "Внимание!",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result2 == DialogResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Договор добавлен");
+                    }
+
+                    //customer = gb.CustomerSet.First(a => a.CustomerId == id);
+
+                    currentClient.Contract.Add(contract);
+
+                    await gb.SaveChangesAsync();
+                    RefreshContractDataView();
+                }
+
+            }
+
+        }
+
+        private async void dataGridView1_Client_SelectionChanged(object sender, EventArgs e)
+        {
+
+            //using (var gb = new DBContainer())
+            //{
+            //    int id = FindClientID();
+            //    var currentClient =  gb.ClientSet.Find(id);
+
+            //    dataGridView_Contract.DataSource =
+            //            currentClient.Contract.Select(
+            //                a =>
+            //                    new
+            //                    {
+            //                        Id = a.ContractID,
+            //                        Номер = a.ContractNumber,
+            //                        Объект = a.ContractObject,
+            //                        Дата = a.ContractDate,
+            //                        Цена = a.ContractPrice,
+            //                        Статус = a.ContractStatus
+            //                    }).ToList();
+            //    dataGridView_Contract.Columns[0].Visible = false;
+
+
+            //}
+        }
+        //event shows clients contracts
+        private async void dataGridView1_Client_Click(object sender, EventArgs e)
+        {
+            using (var gb = new DBContainer())
+            {
+                int id = FindClientID();
+                var currentClient = await gb.ClientSet.FirstOrDefaultAsync(a => a.ClientID == id);
+
+                dataGridView_Contract.DataSource =
+                        currentClient.Contract.Select(
+                            a =>
+                                new
+                                {
+                                    Id = a.ContractID,
+                                    Номер = a.ContractNumber,
+                                    Объект = a.ContractObject,
+                                    Дата = a.ContractDate,
+                                    Цена = a.ContractPrice,
+                                    Статус = a.ContractStatus
+                                }).ToList();
+                dataGridView_Contract.Columns[0].Visible = false;
+
+
+            }
+
+        }
+
+        private async void dataGridView1_Client_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+
         }
     }
 }
