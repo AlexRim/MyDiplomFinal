@@ -42,6 +42,7 @@ namespace UserControlLibrary
                                 Статус = a.ContractStatus
                             }).ToList();
                 dataGridView_Contract.Columns[0].Visible = false;
+         
             }
         }
         //private int FindClienID2()
@@ -146,6 +147,8 @@ namespace UserControlLibrary
                     await  gb.SaveChangesAsync();
                     MessageBox.Show("Клиент успешно добавлен!");
                     RefreshClientDataView();
+
+
                 }
 
 
@@ -161,11 +164,17 @@ namespace UserControlLibrary
             using (var gb = new DBContainer())
             {
                 var client = await gb.ClientSet.FindAsync(FindClientID());
+               
+              client.Contract.Clear();
                 gb.ClientSet.Remove(client);
+
+
                 gb.SaveChanges();
             }
             RefreshClientDataView();
-            MessageBox.Show("Клиент удален успешно!");
+         dataGridView_Contract.DataSource=new object();
+           
+            MessageBox.Show("Клиент удален успешно!");      
         }
         // event changes clents information
         private async void button1_ChangeClient_Click(object sender, EventArgs e)
@@ -217,7 +226,7 @@ namespace UserControlLibrary
             {
                 var contract=new Contract();
                 var currentClient = await gb.ClientSet.FindAsync(FindClientID());
-                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + currentClient.Contract.Count;
+                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + currentClient.Contract.Count+1.ToString();
                 add.textBox_ContractDate.Text = DateTime.Now.ToString(@"dd/MM/yyyy");
                 if (add.ShowDialog() == DialogResult.OK)
                 {
@@ -249,7 +258,7 @@ namespace UserControlLibrary
                     currentClient.Contract.Add(contract);
 
                     await gb.SaveChangesAsync();
-                    RefreshContractDataView();
+                    ShowCurrentClientContracts();
                 }
 
             }
@@ -394,8 +403,10 @@ MessageBoxIcon.Question);
                 contr = await gb.ContractSet.FindAsync(FindContractId());
                 gb.ContractSet.Remove(contr);
                 await gb.SaveChangesAsync();
-                MessageBox.Show("Клиент удален успешно!");
+                MessageBox.Show("Договор удален успешно!");
+                RefreshClientDataView();
                 ShowCurrentClientContracts();
+                RefreshContractDataView();
 
             }
 
