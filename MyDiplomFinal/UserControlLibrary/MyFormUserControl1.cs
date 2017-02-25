@@ -45,15 +45,7 @@ namespace UserControlLibrary
          
             }
         }
-        //private int FindClienID2()
-        //{
-        //    int index = dataGridView1_Client.SelectedRows[0].Index;
-        //    int id = 0;
-        //    bool converted = Int32.TryParse(dataGridView1_Client[0, index].Value.ToString(), out id);
-           
-        //        return id;
-           
-        //}
+
 
 
 
@@ -268,27 +260,48 @@ namespace UserControlLibrary
         private async void dataGridView1_Client_SelectionChanged(object sender, EventArgs e)
         {
 
-            //using (var gb = new DBContainer())
-            //{
-            //    int id = FindClientID();
-            //    var currentClient =  gb.ClientSet.Find(id);
+            using (var gb = new DBContainer())
+            {
+                int id = FindClientID();
+                var currentClient =await gb.ClientSet.FindAsync(id);
+                if (currentClient != null)
+                {
+                    dataGridView_Contract.DataSource = 
+                        currentClient.Contract.Select(
+                            a =>
+                                new
+                                {
+                                    Id = a.ContractID,
+                                    Номер = a.ContractNumber,
+                                    Объект = a.ContractObject,
+                                    Дата = a.ContractDate,
+                                    Цена = a.ContractPrice,
+                                    Статус = a.ContractStatus
+                                }).ToList();
+                    dataGridView_Contract.Columns[0].Visible = false;
+                }
+                else
+                {
+                    var cl=new Client();
+                     cl = gb.ClientSet.First(a => a.ClientID > 0);
+                    
+                    dataGridView_Contract.DataSource =
+                       cl.Contract.Select(
+                           a =>
+                               new
+                               {
+                                   Id = a.ContractID,
+                                   Номер = a.ContractNumber,
+                                   Объект = a.ContractObject,
+                                   Дата = a.ContractDate,
+                                   Цена = a.ContractPrice,
+                                   Статус = a.ContractStatus
+                               }).ToList();
+                    dataGridView_Contract.Columns[0].Visible = false;
+                }
 
-            //    dataGridView_Contract.DataSource =
-            //            currentClient.Contract.Select(
-            //                a =>
-            //                    new
-            //                    {
-            //                        Id = a.ContractID,
-            //                        Номер = a.ContractNumber,
-            //                        Объект = a.ContractObject,
-            //                        Дата = a.ContractDate,
-            //                        Цена = a.ContractPrice,
-            //                        Статус = a.ContractStatus
-            //                    }).ToList();
-            //    dataGridView_Contract.Columns[0].Visible = false;
 
-
-            //}
+            }
         }
         //event shows clients contracts
         private async void dataGridView1_Client_Click(object sender, EventArgs e)
@@ -317,7 +330,7 @@ namespace UserControlLibrary
 
         }
 
-        private async void dataGridView1_Client_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        private  void dataGridView1_Client_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
 
         }
