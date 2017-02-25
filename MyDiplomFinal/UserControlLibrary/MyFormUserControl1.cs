@@ -19,7 +19,31 @@ namespace UserControlLibrary
 {
     public partial class MyFormUserControl1 : UserControl
     {
+        // shows currect (selected) clients contracts
+        private async void ShowCurrentClientContracts()
+        {
+            using (var gb = new DBContainer())
+            {
 
+
+                int id = FindClientID();
+                var currentClient = await gb.ClientSet.FirstOrDefaultAsync(a => a.ClientID == id);
+
+                dataGridView_Contract.DataSource =
+                    currentClient.Contract.Select(
+                        a =>
+                            new
+                            {
+                                Id = a.ContractID,
+                                Номер = a.ContractNumber,
+                                Объект = a.ContractObject,
+                                Дата = a.ContractDate,
+                                Цена = a.ContractPrice,
+                                Статус = a.ContractStatus
+                            }).ToList();
+                dataGridView_Contract.Columns[0].Visible = false;
+            }
+        }
         //private int FindClienID2()
         //{
         //    int index = dataGridView1_Client.SelectedRows[0].Index;
@@ -67,6 +91,19 @@ namespace UserControlLibrary
                 dataGridView_Contract.Columns[0].Visible = false;
             }
 
+
+        }
+        // method returns Contract ID
+        private int FindContractId()
+        {
+            int id = 0;
+            if (dataGridView_Contract.SelectedRows.Count > 0)
+            {
+                int index = dataGridView_Contract.SelectedRows[0].Index;
+                bool converted = Int32.TryParse(dataGridView_Contract[0, index].Value.ToString(), out id);
+            }
+
+            return id;
 
         }
         // method returns client ID
@@ -180,7 +217,7 @@ namespace UserControlLibrary
             {
                 var contract=new Contract();
                 var currentClient = await gb.ClientSet.FindAsync(FindClientID());
-                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + currentClient.Contract.Count + 1;
+                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + currentClient.Contract.Count;
                 add.textBox_ContractDate.Text = DateTime.Now.ToString(@"dd/MM/yyyy");
                 if (add.ShowDialog() == DialogResult.OK)
                 {
@@ -273,6 +310,94 @@ namespace UserControlLibrary
 
         private async void dataGridView1_Client_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
+
+        }
+        // method changes contract data
+        private async void button_ChangeContract_Click(object sender, EventArgs e)
+        {
+            var changeDialog=new AddContractDialog();
+            changeDialog.Text = "Редактировать договор";
+            var contr=new Contract();
+
+            using (var gb = new DBContainer())
+            {
+                contr = await gb.ContractSet.FindAsync(FindContractId());
+                changeDialog.textBox_ContractDate.Text = contr.ContractDate;
+                changeDialog.textBox_ContractNumber.Text = contr.ContractNumber;
+                changeDialog.textBox_ContractObject.Text = contr.ContractObject;
+                changeDialog.textBox_ContractPrice.Text = contr.ContractPrice.ToString();
+                if (contr.ContractStatus == "заключается")
+                {
+                    changeDialog.radioButton_Status1.Checked = true;
+                }
+                else if (contr.ContractStatus=="исполняется")
+                {
+                    changeDialog.radioButton_Status2.Checked = true;
+                }
+                else if(contr.ContractStatus=="исполнен")
+                {
+                    changeDialog.radioButton_Status3.Checked = true;
+               
+                }
+                else if (contr.ContractStatus == "расторгнут")
+                {
+                    changeDialog.radioButton_Status4.Checked = true;
+                }
+
+                if (changeDialog.ShowDialog() == DialogResult.OK)
+                {
+                    contr.ContractDate =changeDialog.textBox_ContractDate.Text;
+                    contr.ContractNumber = changeDialog.textBox_ContractNumber.Text;
+                    contr.ContractPrice = Convert.ToDouble(changeDialog.textBox_ContractPrice.Text);
+                    contr.ContractObject = changeDialog.textBox_ContractObject.Text;
+                    foreach (RadioButton radio in changeDialog.Controls.OfType<RadioButton>())
+                    {
+                        if (radio.Checked == true)
+                        {
+                            contr.ContractStatus = radio.Text;
+                        }
+                    }
+                    var result2 = MessageBox.Show("Вы уверены что хотите сохранить изменения договор?", "Внимание!",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result2 == DialogResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Договор изменен");
+                    }
+                    await gb.SaveChangesAsync();
+ 
+
+                    ShowCurrentClientContracts();
+                }
+
+
+
+
+            }
+            
+        }
+
+        private async void button_RemoveContrct_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены что хотите удалить договор?", "Внимание!", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question);
+            if (result == DialogResult.No)
+                return;
+            using (var gb = new DBContainer())
+            {
+                var client=new Client();
+                var contr=new Contract();
+                client =await gb.ClientSet.FindAsync(FindClientID());
+                contr = await gb.ContractSet.FindAsync(FindContractId());
+                gb.ContractSet.Remove(contr);
+                await gb.SaveChangesAsync();
+                MessageBox.Show("Клиент удален успешно!");
+                ShowCurrentClientContracts();
+
+            }
 
         }
     }

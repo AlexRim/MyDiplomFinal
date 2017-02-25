@@ -34,6 +34,8 @@
             this.button1_ChangeClient = new System.Windows.Forms.Button();
             this.dataGridView_Contract = new System.Windows.Forms.DataGridView();
             this.button_AddContractToClient = new System.Windows.Forms.Button();
+            this.button_ChangeContract = new System.Windows.Forms.Button();
+            this.button_RemoveContrct = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_Client)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Contract)).BeginInit();
             this.SuspendLayout();
@@ -101,11 +103,33 @@
             this.button_AddContractToClient.UseVisualStyleBackColor = true;
             this.button_AddContractToClient.Click += new System.EventHandler(this.button_AddContractToClient_Click);
             // 
+            // button_ChangeContract
+            // 
+            this.button_ChangeContract.Location = new System.Drawing.Point(742, 216);
+            this.button_ChangeContract.Name = "button_ChangeContract";
+            this.button_ChangeContract.Size = new System.Drawing.Size(75, 23);
+            this.button_ChangeContract.TabIndex = 6;
+            this.button_ChangeContract.Text = "Редакт. договор";
+            this.button_ChangeContract.UseVisualStyleBackColor = true;
+            this.button_ChangeContract.Click += new System.EventHandler(this.button_ChangeContract_Click);
+            // 
+            // button_RemoveContrct
+            // 
+            this.button_RemoveContrct.Location = new System.Drawing.Point(743, 246);
+            this.button_RemoveContrct.Name = "button_RemoveContrct";
+            this.button_RemoveContrct.Size = new System.Drawing.Size(75, 23);
+            this.button_RemoveContrct.TabIndex = 7;
+            this.button_RemoveContrct.Text = "Удалить Договор";
+            this.button_RemoveContrct.UseVisualStyleBackColor = true;
+            this.button_RemoveContrct.Click += new System.EventHandler(this.button_RemoveContrct_Click);
+            // 
             // MyFormUserControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.button_RemoveContrct);
+            this.Controls.Add(this.button_ChangeContract);
             this.Controls.Add(this.button_AddContractToClient);
             this.Controls.Add(this.dataGridView_Contract);
             this.Controls.Add(this.button1_ChangeClient);
@@ -128,5 +152,7 @@
         public System.Windows.Forms.Button button1_ChangeClient;
         public System.Windows.Forms.DataGridView dataGridView_Contract;
         public System.Windows.Forms.Button button_AddContractToClient;
+        public System.Windows.Forms.Button button_ChangeContract;
+        private System.Windows.Forms.Button button_RemoveContrct;
     }
 }
