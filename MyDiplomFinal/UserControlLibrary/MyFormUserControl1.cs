@@ -17,6 +17,7 @@ using DialogFormLibrary;
 
 namespace UserControlLibrary
 {
+    public delegate int FindCurrentClient();
     public partial class MyFormUserControl1 : UserControl
     {
         // shows currect (selected) clients contracts
@@ -45,10 +46,6 @@ namespace UserControlLibrary
          
             }
         }
-
-
-
-
 
         // method refresh ClientDatagrid
         private async void RefreshClientDataView()
@@ -87,7 +84,7 @@ namespace UserControlLibrary
 
         }
         // method returns Contract ID
-        private int FindContractId()
+        public int FindContractId()
         {
             int id = 0;
             if (dataGridView_Contract.SelectedRows.Count > 0)
@@ -100,7 +97,7 @@ namespace UserControlLibrary
 
         }
         // method returns client ID
-        private int FindClientID()
+     private  int FindClientID()
         {
             int id = 0;
             if (dataGridView1_Client.SelectedRows.Count > 0)
@@ -401,7 +398,7 @@ namespace UserControlLibrary
             }
             
         }
-
+        //events delets contracts
         private async void button_RemoveContrct_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Вы уверены что хотите удалить договор?", "Внимание!", MessageBoxButtons.YesNo,

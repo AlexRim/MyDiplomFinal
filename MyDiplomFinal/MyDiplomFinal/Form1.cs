@@ -61,14 +61,33 @@ namespace MyDiplomFinal
 
         }
         //shows counts usercontrol
-        private void расчетыToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void расчетыToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FindCurrentClient find = new FindCurrentClient(userControl1.FindContractId);
+            int id = find();
             ChangeUserControl(userControl1, userControl2);
             userControl2 = new MyFormUserControl2();
             this.Controls.Add(userControl2);
             userControl2.Top = 25;
             userControl2.Left = 0;
-    
+            
+            using (var gb = new DBContainer())
+            {             
+                IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == id);
+              await  query.ToListAsync();
+                userControl2.dataGridView2_Contr.DataSource= await query.Select(a=>new
+                {
+                    Id = a.ContractID,
+                    Номер = a.ContractNumber,
+                    Объект = a.ContractObject,
+                    Дата = a.ContractDate,
+                    Цена = a.ContractPrice,
+                    Статус = a.ContractStatus
+                }).ToListAsync();
+                userControl2.dataGridView2_Contr.Columns[0].Visible = false;
+
+            }
+
         }
     }
 }
