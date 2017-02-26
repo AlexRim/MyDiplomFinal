@@ -17,7 +17,7 @@ using DialogFormLibrary;
 
 namespace UserControlLibrary
 {
-    public delegate int FindCurrentClient();
+    public delegate int FindCurrentContract();
     public partial class MyFormUserControl1 : UserControl
     {
         // shows currect (selected) clients contracts

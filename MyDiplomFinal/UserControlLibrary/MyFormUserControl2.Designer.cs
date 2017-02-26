@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.dataGridView2_Contr = new System.Windows.Forms.DataGridView();
+            this.listBox1_TypesOfWork = new System.Windows.Forms.ListBox();
+            this.button_AddTypeWork = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,14 +46,35 @@
             this.dataGridView2_Contr.Size = new System.Drawing.Size(598, 41);
             this.dataGridView2_Contr.TabIndex = 0;
             // 
+            // listBox1_TypesOfWork
+            // 
+            this.listBox1_TypesOfWork.FormattingEnabled = true;
+            this.listBox1_TypesOfWork.Location = new System.Drawing.Point(3, 70);
+            this.listBox1_TypesOfWork.Name = "listBox1_TypesOfWork";
+            this.listBox1_TypesOfWork.Size = new System.Drawing.Size(161, 160);
+            this.listBox1_TypesOfWork.TabIndex = 1;
+            // 
+            // button_AddTypeWork
+            // 
+            this.button_AddTypeWork.Location = new System.Drawing.Point(170, 70);
+            this.button_AddTypeWork.Name = "button_AddTypeWork";
+            this.button_AddTypeWork.Size = new System.Drawing.Size(75, 23);
+            this.button_AddTypeWork.TabIndex = 2;
+            this.button_AddTypeWork.Text = "Добавить ПТМ";
+            this.button_AddTypeWork.UseVisualStyleBackColor = true;
+            this.button_AddTypeWork.Click += new System.EventHandler(this.button_AddTypeWork_Click);
+            // 
             // MyFormUserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Controls.Add(this.button_AddTypeWork);
+            this.Controls.Add(this.listBox1_TypesOfWork);
             this.Controls.Add(this.dataGridView2_Contr);
             this.Name = "MyFormUserControl2";
             this.Size = new System.Drawing.Size(1000, 675);
+            this.Load += new System.EventHandler(this.MyFormUserControl2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).EndInit();
             this.ResumeLayout(false);
 
@@ -60,5 +83,7 @@
         #endregion
 
         public System.Windows.Forms.DataGridView dataGridView2_Contr;
+        public System.Windows.Forms.ListBox listBox1_TypesOfWork;
+        private System.Windows.Forms.Button button_AddTypeWork;
     }
 }

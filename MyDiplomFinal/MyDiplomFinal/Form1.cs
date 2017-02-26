@@ -63,7 +63,7 @@ namespace MyDiplomFinal
         //shows counts usercontrol
         private async void расчетыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindCurrentClient find = new FindCurrentClient(userControl1.FindContractId);
+            FindCurrentContract find = new FindCurrentContract(userControl1.FindContractId);
             int id = find();
             ChangeUserControl(userControl1, userControl2);
             userControl2 = new MyFormUserControl2();
@@ -74,7 +74,8 @@ namespace MyDiplomFinal
             using (var gb = new DBContainer())
             {             
                 IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == id);
-              await  query.ToListAsync();
+                var con = query;
+             await  query.ToListAsync();
                 userControl2.dataGridView2_Contr.DataSource= await query.Select(a=>new
                 {
                     Id = a.ContractID,
@@ -85,6 +86,22 @@ namespace MyDiplomFinal
                     Статус = a.ContractStatus
                 }).ToListAsync();
                 userControl2.dataGridView2_Contr.Columns[0].Visible = false;
+                var typeQuery = from TypeOfWork in gb.TypeOfWorkSet
+                    where TypeOfWork.ContractContractID == id
+                    select TypeOfWork;
+                typeQuery.ToList();
+                foreach (var i in typeQuery)
+                {
+                       userControl2.listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
+                }
+             
+
+                //from TypeOfWork in gb.TypeOfWorkSet
+                //where TypeOfWork.ContractContractId == id
+                //select TypeOfWork;
+                //     List<TypeOfWork> z = t.ToList();
+
+                userControl2.listBox1_TypesOfWork.Refresh();
 
             }
 
