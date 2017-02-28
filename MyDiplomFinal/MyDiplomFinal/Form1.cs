@@ -94,13 +94,6 @@ namespace MyDiplomFinal
                 {
                        userControl2.listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
                 }
-             
-
-                //from TypeOfWork in gb.TypeOfWorkSet
-                //where TypeOfWork.ContractContractId == id
-                //select TypeOfWork;
-                //     List<TypeOfWork> z = t.ToList();
-
                 userControl2.listBox1_TypesOfWork.Refresh();
 
             }
