@@ -32,6 +32,7 @@
             this.listBox1_TypesOfWork = new System.Windows.Forms.ListBox();
             this.button_AddTypeWork = new System.Windows.Forms.Button();
             this.button_DeleteWorkType = new System.Windows.Forms.Button();
+            this.button_ChangeTypeOfWork = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,11 +76,22 @@
             this.button_DeleteWorkType.UseVisualStyleBackColor = true;
             this.button_DeleteWorkType.Click += new System.EventHandler(this.button_DeleteWorkType_Click);
             // 
+            // button_ChangeTypeOfWork
+            // 
+            this.button_ChangeTypeOfWork.Location = new System.Drawing.Point(171, 130);
+            this.button_ChangeTypeOfWork.Name = "button_ChangeTypeOfWork";
+            this.button_ChangeTypeOfWork.Size = new System.Drawing.Size(75, 23);
+            this.button_ChangeTypeOfWork.TabIndex = 4;
+            this.button_ChangeTypeOfWork.Text = "Редакт.  ";
+            this.button_ChangeTypeOfWork.UseVisualStyleBackColor = true;
+            this.button_ChangeTypeOfWork.Click += new System.EventHandler(this.button_ChangeTypeOfWork_Click);
+            // 
             // MyFormUserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Controls.Add(this.button_ChangeTypeOfWork);
             this.Controls.Add(this.button_DeleteWorkType);
             this.Controls.Add(this.button_AddTypeWork);
             this.Controls.Add(this.listBox1_TypesOfWork);
@@ -98,5 +110,6 @@
         public System.Windows.Forms.ListBox listBox1_TypesOfWork;
         private System.Windows.Forms.Button button_AddTypeWork;
         private System.Windows.Forms.Button button_DeleteWorkType;
+        private System.Windows.Forms.Button button_ChangeTypeOfWork;
     }
 }

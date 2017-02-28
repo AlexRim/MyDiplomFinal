@@ -116,5 +116,50 @@ namespace UserControlLibrary
 
             }
         }
+        // event changes selected in listbox typeOfWork data
+        private async void button_ChangeTypeOfWork_Click(object sender, EventArgs e)
+        {
+            var red = new TypeWorkDialog();
+            red.Text = "Редактирование";
+            int id = FindIDContract();
+           
+
+            using (var gb = new DBContainer())
+            {
+                
+                var contr =await gb.ContractSet.FindAsync(id);
+                var type=contr.TypeOfWork.FirstOrDefault(a=>a.TypeOfWorkName==listBox1_TypesOfWork.SelectedItem.ToString());
+                red.comboBox_TypesOfWork.Text = type.TypeOfWorkName;
+                if (red.ShowDialog() == DialogResult.OK)
+                {
+                   
+                    type.TypeOfWorkName = red.comboBox_TypesOfWork.Text;
+                    var typeCheck =
+                        contr.TypeOfWork.FirstOrDefault(a => a.TypeOfWorkName == red.comboBox_TypesOfWork.Text);
+                    if (typeCheck != null)
+                    {
+                        MessageBox.Show("Такой вид работ уже внесен");
+                        return;
+                        
+
+                    }
+                  await  gb.SaveChangesAsync();
+
+
+                }
+                listBox1_TypesOfWork.Items.Clear();
+                var typeQuery = from TypeOfWork in gb.TypeOfWorkSet
+                                where TypeOfWork.ContractContractID == id
+                                select TypeOfWork;
+                typeQuery.ToList();
+                foreach (var i in typeQuery)
+                {
+                    listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
+                }
+                listBox1_TypesOfWork.Refresh();
+
+
+            }
+        }
     }
 }

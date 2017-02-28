@@ -95,6 +95,7 @@ namespace MyDiplomFinal
                        userControl2.listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
                 }
                 userControl2.listBox1_TypesOfWork.Refresh();
+                userControl2.listBox1_TypesOfWork.SelectedIndex = 0;
 
             }
 
