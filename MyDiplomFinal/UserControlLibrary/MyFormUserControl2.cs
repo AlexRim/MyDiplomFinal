@@ -78,5 +78,43 @@ namespace UserControlLibrary
         {
            
         }
+        // event delets TypeOfWork from contract
+        private async void button_DeleteWorkType_Click(object sender, EventArgs e)
+        {
+            int id = FindIDContract();
+            using (var gb = new DBContainer())
+            {
+                var contr =await gb.ContractSet.FindAsync(id);
+                var type =
+                    contr.TypeOfWork.FirstOrDefault(
+                        a => a.TypeOfWorkName == listBox1_TypesOfWork.SelectedItem.ToString());
+                var worksClear = type.Work;
+                worksClear.ToList();
+                var work = type.Work.FirstOrDefault(a => a.TypeOfWork == type);
+                //var matClear = work.Material;
+                //matClear.ToList();
+                //work.Material.Clear();
+                //gb.MaterialSet.RemoveRange(matClear);
+                //type.Work.Clear();
+                //gb.WorkSet.RemoveRange(worksClear);
+                //gb.TypeOfWorkSet.Remove(type);
+                contr.TypeOfWork.Remove(type);
+            await    gb.SaveChangesAsync();
+                listBox1_TypesOfWork.Items.Clear();
+                var typeQuery = from TypeOfWork in gb.TypeOfWorkSet
+                                where TypeOfWork.ContractContractID == id
+                                select TypeOfWork;
+                typeQuery.ToList();
+                foreach (var i in typeQuery)
+                {
+                   listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
+                }
+               listBox1_TypesOfWork.Refresh();
+
+
+
+
+            }
+        }
     }
 }

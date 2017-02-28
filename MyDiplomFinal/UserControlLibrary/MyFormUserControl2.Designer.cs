@@ -31,6 +31,7 @@
             this.dataGridView2_Contr = new System.Windows.Forms.DataGridView();
             this.listBox1_TypesOfWork = new System.Windows.Forms.ListBox();
             this.button_AddTypeWork = new System.Windows.Forms.Button();
+            this.button_DeleteWorkType = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,11 +65,22 @@
             this.button_AddTypeWork.UseVisualStyleBackColor = true;
             this.button_AddTypeWork.Click += new System.EventHandler(this.button_AddTypeWork_Click);
             // 
+            // button_DeleteWorkType
+            // 
+            this.button_DeleteWorkType.Location = new System.Drawing.Point(171, 100);
+            this.button_DeleteWorkType.Name = "button_DeleteWorkType";
+            this.button_DeleteWorkType.Size = new System.Drawing.Size(75, 23);
+            this.button_DeleteWorkType.TabIndex = 3;
+            this.button_DeleteWorkType.Text = "Удалить тип работ";
+            this.button_DeleteWorkType.UseVisualStyleBackColor = true;
+            this.button_DeleteWorkType.Click += new System.EventHandler(this.button_DeleteWorkType_Click);
+            // 
             // MyFormUserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Controls.Add(this.button_DeleteWorkType);
             this.Controls.Add(this.button_AddTypeWork);
             this.Controls.Add(this.listBox1_TypesOfWork);
             this.Controls.Add(this.dataGridView2_Contr);
@@ -85,5 +97,6 @@
         public System.Windows.Forms.DataGridView dataGridView2_Contr;
         public System.Windows.Forms.ListBox listBox1_TypesOfWork;
         private System.Windows.Forms.Button button_AddTypeWork;
+        private System.Windows.Forms.Button button_DeleteWorkType;
     }
 }
