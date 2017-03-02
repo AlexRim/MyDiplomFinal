@@ -56,6 +56,7 @@ namespace UserControlLibrary
                await gb.ClientSet.Select(a => new { id = a.ClientID, ФИО = a.ClientName, Адрес = a.ClientAdress, УНН = a.ClientUNN, Пасспорт = a.ClientPassport, Тел_Факс = a.ClientPhonePhax })
                         .ToListAsync();
                 dataGridView1_Client.Columns[0].Visible = false;
+                dataGridView1_Client.Refresh();
               
             }
 
@@ -136,7 +137,12 @@ namespace UserControlLibrary
                     await  gb.SaveChangesAsync();
                     MessageBox.Show("Клиент успешно добавлен!");
                     RefreshClientDataView();
-
+                   // int z = gb.ClientSet.Count()-2;
+                   //int y= dataGridView1_Client.Rows.Count;
+                   // if (dataGridView1_Client.Rows.Count > 0)
+                   // {
+                   //     dataGridView1_Client.Rows[3].Selected=true;
+                   // }
 
                 }
 
@@ -213,9 +219,11 @@ namespace UserControlLibrary
             add.radioButton_Status1.Checked = true;
             using (var gb = new DBContainer())
             {
+                
                 var contract=new Contract();
                 var currentClient = await gb.ClientSet.FindAsync(FindClientID());
-                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + currentClient.Contract.Count+1.ToString();
+                int z = currentClient.Contract.Count+1;
+                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + z;
                 add.textBox_ContractDate.Text = DateTime.Now.ToString(@"dd/MM/yyyy");
                 if (add.ShowDialog() == DialogResult.OK)
                 {
@@ -411,6 +419,7 @@ MessageBoxIcon.Question);
                 var contr=new Contract();
                 client =await gb.ClientSet.FindAsync(FindClientID());
                 contr = await gb.ContractSet.FindAsync(FindContractId());
+                contr.TypeOfWork.Clear();
                 gb.ContractSet.Remove(contr);
                 await gb.SaveChangesAsync();
                 MessageBox.Show("Договор удален успешно!");

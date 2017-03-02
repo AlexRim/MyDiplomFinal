@@ -33,7 +33,11 @@
             this.button_AddTypeWork = new System.Windows.Forms.Button();
             this.button_DeleteWorkType = new System.Windows.Forms.Button();
             this.button_ChangeTypeOfWork = new System.Windows.Forms.Button();
+            this.dataGridView_AdWork = new System.Windows.Forms.DataGridView();
+            this.button_AddWork = new System.Windows.Forms.Button();
+            this.button_DeleteWork = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AdWork)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView2_Contr
@@ -55,6 +59,7 @@
             this.listBox1_TypesOfWork.Name = "listBox1_TypesOfWork";
             this.listBox1_TypesOfWork.Size = new System.Drawing.Size(161, 160);
             this.listBox1_TypesOfWork.TabIndex = 1;
+            this.listBox1_TypesOfWork.SelectedIndexChanged += new System.EventHandler(this.listBox1_TypesOfWork_SelectedIndexChanged);
             // 
             // button_AddTypeWork
             // 
@@ -86,11 +91,45 @@
             this.button_ChangeTypeOfWork.UseVisualStyleBackColor = true;
             this.button_ChangeTypeOfWork.Click += new System.EventHandler(this.button_ChangeTypeOfWork_Click);
             // 
+            // dataGridView_AdWork
+            // 
+            this.dataGridView_AdWork.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_AdWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_AdWork.Location = new System.Drawing.Point(264, 70);
+            this.dataGridView_AdWork.MultiSelect = false;
+            this.dataGridView_AdWork.Name = "dataGridView_AdWork";
+            this.dataGridView_AdWork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_AdWork.Size = new System.Drawing.Size(591, 160);
+            this.dataGridView_AdWork.TabIndex = 5;
+            // 
+            // button_AddWork
+            // 
+            this.button_AddWork.Location = new System.Drawing.Point(862, 70);
+            this.button_AddWork.Name = "button_AddWork";
+            this.button_AddWork.Size = new System.Drawing.Size(75, 23);
+            this.button_AddWork.TabIndex = 6;
+            this.button_AddWork.Text = "Добавить работу";
+            this.button_AddWork.UseVisualStyleBackColor = true;
+            this.button_AddWork.Click += new System.EventHandler(this.button_AddWork_Click);
+            // 
+            // button_DeleteWork
+            // 
+            this.button_DeleteWork.Location = new System.Drawing.Point(862, 100);
+            this.button_DeleteWork.Name = "button_DeleteWork";
+            this.button_DeleteWork.Size = new System.Drawing.Size(75, 23);
+            this.button_DeleteWork.TabIndex = 7;
+            this.button_DeleteWork.Text = "Удалить работу";
+            this.button_DeleteWork.UseVisualStyleBackColor = true;
+            this.button_DeleteWork.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MyFormUserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Controls.Add(this.button_DeleteWork);
+            this.Controls.Add(this.button_AddWork);
+            this.Controls.Add(this.dataGridView_AdWork);
             this.Controls.Add(this.button_ChangeTypeOfWork);
             this.Controls.Add(this.button_DeleteWorkType);
             this.Controls.Add(this.button_AddTypeWork);
@@ -100,6 +139,7 @@
             this.Size = new System.Drawing.Size(1000, 675);
             this.Load += new System.EventHandler(this.MyFormUserControl2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AdWork)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -111,5 +151,8 @@
         private System.Windows.Forms.Button button_AddTypeWork;
         private System.Windows.Forms.Button button_DeleteWorkType;
         private System.Windows.Forms.Button button_ChangeTypeOfWork;
+        public System.Windows.Forms.DataGridView dataGridView_AdWork;
+        private System.Windows.Forms.Button button_AddWork;
+        private System.Windows.Forms.Button button_DeleteWork;
     }
 }
