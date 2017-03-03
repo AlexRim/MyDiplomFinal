@@ -48,6 +48,12 @@
     <Compile Include="AddContractDialog.Designer.cs">
       <DependentUpon>AddContractDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddMaterialDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMaterialDialog.Designer.cs">
+      <DependentUpon>AddMaterialDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddWorkDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AddContractDialog.resx">
       <DependentUpon>AddContractDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddMaterialDialog.resx">
+      <DependentUpon>AddMaterialDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddWorkDialog.resx">
       <DependentUpon>AddWorkDialog.cs</DependentUpon>

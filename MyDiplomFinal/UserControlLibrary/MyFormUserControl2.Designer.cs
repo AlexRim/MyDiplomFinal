@@ -36,8 +36,13 @@
             this.dataGridView_AdWork = new System.Windows.Forms.DataGridView();
             this.button_AddWork = new System.Windows.Forms.Button();
             this.button_DeleteWork = new System.Windows.Forms.Button();
+            this.button_ChangeWork = new System.Windows.Forms.Button();
+            this.dataGridView_ShowMaterials = new System.Windows.Forms.DataGridView();
+            this.button_AddMaterial = new System.Windows.Forms.Button();
+            this.button_DeleteMaterial = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AdWork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ShowMaterials)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView2_Contr
@@ -122,11 +127,56 @@
             this.button_DeleteWork.UseVisualStyleBackColor = true;
             this.button_DeleteWork.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button_ChangeWork
+            // 
+            this.button_ChangeWork.Location = new System.Drawing.Point(862, 130);
+            this.button_ChangeWork.Name = "button_ChangeWork";
+            this.button_ChangeWork.Size = new System.Drawing.Size(75, 23);
+            this.button_ChangeWork.TabIndex = 8;
+            this.button_ChangeWork.Text = "Редакт.";
+            this.button_ChangeWork.UseVisualStyleBackColor = true;
+            this.button_ChangeWork.Click += new System.EventHandler(this.button_ChangeWork_Click);
+            // 
+            // dataGridView_ShowMaterials
+            // 
+            this.dataGridView_ShowMaterials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_ShowMaterials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_ShowMaterials.Location = new System.Drawing.Point(264, 254);
+            this.dataGridView_ShowMaterials.MultiSelect = false;
+            this.dataGridView_ShowMaterials.Name = "dataGridView_ShowMaterials";
+            this.dataGridView_ShowMaterials.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_ShowMaterials.Size = new System.Drawing.Size(591, 160);
+            this.dataGridView_ShowMaterials.TabIndex = 9;
+            // 
+            // button_AddMaterial
+            // 
+            this.button_AddMaterial.Location = new System.Drawing.Point(861, 254);
+            this.button_AddMaterial.Name = "button_AddMaterial";
+            this.button_AddMaterial.Size = new System.Drawing.Size(75, 23);
+            this.button_AddMaterial.TabIndex = 10;
+            this.button_AddMaterial.Text = "Добавить";
+            this.button_AddMaterial.UseVisualStyleBackColor = true;
+            this.button_AddMaterial.Click += new System.EventHandler(this.button_AddMaterial_Click);
+            // 
+            // button_DeleteMaterial
+            // 
+            this.button_DeleteMaterial.Location = new System.Drawing.Point(862, 284);
+            this.button_DeleteMaterial.Name = "button_DeleteMaterial";
+            this.button_DeleteMaterial.Size = new System.Drawing.Size(75, 23);
+            this.button_DeleteMaterial.TabIndex = 11;
+            this.button_DeleteMaterial.Text = "Удалить";
+            this.button_DeleteMaterial.UseVisualStyleBackColor = true;
+            this.button_DeleteMaterial.Click += new System.EventHandler(this.button_DeleteMaterial_Click);
+            // 
             // MyFormUserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Controls.Add(this.button_DeleteMaterial);
+            this.Controls.Add(this.button_AddMaterial);
+            this.Controls.Add(this.dataGridView_ShowMaterials);
+            this.Controls.Add(this.button_ChangeWork);
             this.Controls.Add(this.button_DeleteWork);
             this.Controls.Add(this.button_AddWork);
             this.Controls.Add(this.dataGridView_AdWork);
@@ -140,6 +190,7 @@
             this.Load += new System.EventHandler(this.MyFormUserControl2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AdWork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ShowMaterials)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -154,5 +205,9 @@
         public System.Windows.Forms.DataGridView dataGridView_AdWork;
         private System.Windows.Forms.Button button_AddWork;
         private System.Windows.Forms.Button button_DeleteWork;
+        private System.Windows.Forms.Button button_ChangeWork;
+        public System.Windows.Forms.DataGridView dataGridView_ShowMaterials;
+        private System.Windows.Forms.Button button_AddMaterial;
+        private System.Windows.Forms.Button button_DeleteMaterial;
     }
 }

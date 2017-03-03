@@ -203,37 +203,13 @@ namespace UserControlLibrary
                     type.Work.Add(work);
                     contr.ContractPrice += work.WorkUnitPrice*work.WorkAmmount;
                     await gb.SaveChangesAsync();
-                    dataGridView_AdWork.DataSource =
-                        type.Work.Select(
-                            a =>
-                                new
-                                {
-                                    id = a.WorkID,
-                                    Наименование = a.WorkName,
-                                    Объем = a.WorkAmmount,
-                                    Eд = a.WorkUnit,
-                                    Цена_за_ед = a.WorkUnitPrice,
-                                    Итого = a.WorkAmmount*a.WorkUnitPrice
-                                }).ToList();
-                    dataGridView_AdWork.Columns[0].Visible = false;
-                    dataGridView_AdWork.Refresh();
+                    RefreshWorkData(type);
                 }
                 else
                 {
                     MessageBox.Show("Выберите ПТМ!");
                 }
-                IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == id);
-                await query.ToListAsync();
-               dataGridView2_Contr.DataSource = await query.Select(a => new
-                {
-                    Id = a.ContractID,
-                    Номер = a.ContractNumber,
-                    Объект = a.ContractObject,
-                    Дата = a.ContractDate,
-                    Цена = a.ContractPrice,
-                    Статус = a.ContractStatus
-                }).ToListAsync();
-                dataGridView2_Contr.Columns[0].Visible = false;
+                RefreshContrData(id);
             }
 
         }
@@ -252,20 +228,7 @@ namespace UserControlLibrary
                             a =>
                                 a.TypeOfWorkName == listBox1_TypesOfWork.SelectedItem.ToString() &&
                                 a.ContractContractID == id);
-                    dataGridView_AdWork.DataSource =
-                        type.Work.Select(
-                            a =>
-                                new
-                                {
-                                    id = a.WorkID,
-                                    Наименование = a.WorkName,
-                                    Объем = a.WorkAmmount,
-                                    Eд = a.WorkUnit,
-                                    Цена_за_ед = a.WorkUnitPrice,
-                                    Итого = a.WorkAmmount*a.WorkUnitPrice
-                                }).ToList();
-                    dataGridView_AdWork.Columns[0].Visible = false;
-                    dataGridView_AdWork.Refresh();
+                    RefreshWorkData(type);
                 }
 
 
@@ -286,39 +249,178 @@ namespace UserControlLibrary
                 type.Work.Remove(work);
                 contr.ContractPrice -= work.WorkUnitPrice*work.WorkAmmount;
               await  gb.SaveChangesAsync();
-                dataGridView_AdWork.DataSource=type.Work.Select(
-                            a =>
-                                new
-                                {
-                                    id = a.WorkID,
-                                    Наименование = a.WorkName,
-                                    Объем = a.WorkAmmount,
-                                    Eд = a.WorkUnit,
-                                    Цена_за_ед = a.WorkUnitPrice,
-                                    Итого = a.WorkAmmount * a.WorkUnitPrice
-                                }).ToList();
+                RefreshWorkData(type);
+            }
+
+            RefreshContrData(id);
+        }
+
+        //method refreshes work data
+        public  void RefreshWorkData( TypeOfWork type)
+        {
+            using (var gb = new DBContainer())
+            {
+                dataGridView_AdWork.DataSource = type.Work.Select(
+            a =>
+                new
+                {
+                    id = a.WorkID,
+                    Наименование = a.WorkName,
+                    Объем = a.WorkAmmount,
+                    Eд = a.WorkUnit,
+                    Цена_за_ед = a.WorkUnitPrice,
+                    Итого = a.WorkAmmount * a.WorkUnitPrice
+                }).ToList();
                 dataGridView_AdWork.Columns[0].Visible = false;
                 dataGridView_AdWork.Refresh();
 
-                IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == id);
-                var con = query;
-                await query.ToListAsync();
-               dataGridView2_Contr.DataSource = await query.Select(a => new
+            }
+            
+        }
+        // method refreshes contract data after changing work data
+        public async void RefreshContrData(int contrId)
+        {
+            using (var gb=new DBContainer())
+            {               
+            IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == contrId);
+            await query.ToListAsync();
+            dataGridView2_Contr.DataSource = await query.Select(a => new
+            {
+                Id = a.ContractID,
+                Номер = a.ContractNumber,
+                Объект = a.ContractObject,
+                Дата = a.ContractDate,
+                Цена = a.ContractPrice,
+                Статус = a.ContractStatus
+            }).ToListAsync();
+            dataGridView2_Contr.Columns[0].Visible = false;
+                dataGridView2_Contr.Refresh();
+            }
+
+        }
+        // method refreshes mat datagrid
+       private async void RefreshMatData(int id)
+        {
+            using (var gb = new DBContainer())
+            {
+                var work = await gb.WorkSet.FindAsync(id);
+                dataGridView_ShowMaterials.DataSource =
+                    work.Material.Select(
+                        a =>
+                            new
+                            {
+                                id = a.MaterialID,
+                                Наименование = a.MaterialName,
+                                Количество = a.MaterialAmmount,
+                                Ед = a.MaterialUnit,
+                                Цена_ед = a.MaterialUnitPrice,
+                                Итого = a.MaterialAmmount*a.MaterialUnitPrice
+                            }).ToList();
+                dataGridView_ShowMaterials.Columns[0].Visible = false;
+             
+                dataGridView_ShowMaterials.Refresh();
+            }
+        }
+        // event changes Work data
+        private async void button_ChangeWork_Click(object sender, EventArgs e)
+        {
+            int id = FindWorkId();
+            var ch =new AddWorkDialog();
+            ch.Text = "Редактирование";
+            int id2 = FindIDContract();
+            using (var gb = new DBContainer())
+            {
+                var contr = await gb.ContractSet.FindAsync(id2);
+                var type = contr.TypeOfWork.FirstOrDefault(a => a.TypeOfWorkName == listBox1_TypesOfWork.SelectedItem.ToString() && a.ContractContractID == id2);
+              
+                var work =await gb.WorkSet.FindAsync(id);
+                ch.comboBox_WorkUnit.Text = work.WorkUnit;
+                ch.textBox1_WorkName.Text = work.WorkName;
+                ch.textBox_WorkAmmount.Text = work.WorkAmmount.ToString();
+                ch.textBox_WorkUnitPrice.Text = work.WorkUnitPrice.ToString();
+                double x = work.WorkAmmount*work.WorkUnitPrice;
+                contr.ContractPrice -= x;
+                if (ch.ShowDialog() == DialogResult.OK)
                 {
-                    Id = a.ContractID,
-                    Номер = a.ContractNumber,
-                    Объект = a.ContractObject,
-                    Дата = a.ContractDate,
-                    Цена = a.ContractPrice,
-                    Статус = a.ContractStatus
-                }).ToListAsync();
-                dataGridView2_Contr.Columns[0].Visible = false;
-
-
+                    work.WorkName = ch.textBox1_WorkName.Text;
+                    work.WorkAmmount = Convert.ToDouble(ch.textBox_WorkAmmount.Text);
+                    work.WorkUnit = ch.comboBox_WorkUnit.Text;
+                    work.WorkUnitPrice = Convert.ToDouble(ch.textBox_WorkUnitPrice.Text);
+                    double y = work.WorkAmmount*work.WorkUnitPrice;
+                    contr.ContractPrice += y;
+                }
+              await  gb.SaveChangesAsync();
+                RefreshContrData(id2);
+                RefreshWorkData(type);
 
 
 
             }
+
+        }
+        // event adds new material to work
+        private async void button_AddMaterial_Click(object sender, EventArgs e)
+        {
+            int id = FindWorkId();
+            int idContr = FindIDContract();
+            var add=new AddMaterialDialog();
+            add.Text = "Добавление материала";
+            add.comboBox_MaterialUnit.Items.AddRange(new []{"кг","т","м.п.","м2","м3","шт"});
+            var mat=new Material();
+            using (var gb = new DBContainer())
+            {
+                var contr =await gb.ContractSet.FindAsync(idContr);
+                var work = await gb.WorkSet.FindAsync(id);
+                if (add.ShowDialog() == DialogResult.OK)
+                {
+                    mat.MaterialName = add.textBox_MaterialName.Text;
+                    mat.MaterialAmmount = Convert.ToDouble(add.textBox_MaterialAmmount.Text);
+                    mat.MaterialUnit = add.comboBox_MaterialUnit.Text;
+                    mat.MaterialUnitPrice =Convert.ToDouble( add.textBox_MaterialUnitPrice.Text);
+                }
+
+                work.Material.Add(mat);
+                contr.ContractPrice+= mat.MaterialUnitPrice*mat.MaterialAmmount;
+               await gb.SaveChangesAsync();
+                RefreshMatData(id);
+                RefreshContrData(idContr);
+            }
+
+        }
+        // event delets material from work
+        private async void button_DeleteMaterial_Click(object sender, EventArgs e)
+        {
+            int idContr = FindIDContract();
+            int workId = FindWorkId();
+            int matID = FindMatId();
+            using (var gb = new DBContainer())
+            {
+                var contr = await gb.ContractSet.FindAsync(idContr);
+                var work = await gb.WorkSet.FindAsync(workId);
+                //var type = contr.TypeOfWork.FirstOrDefault(a => a.TypeOfWorkName == listBox1_TypesOfWork.SelectedItem.ToString() && a.ContractContractID == idContr);
+                var mat =await gb.MaterialSet.FindAsync(matID);
+
+                work.Material.Remove(mat);
+                contr.ContractPrice -= mat.MaterialUnitPrice*mat.MaterialAmmount;
+               await gb.SaveChangesAsync();
+                RefreshMatData(workId);
+                RefreshContrData(idContr);
+
+
+            }
+
+        }
+
+        private int FindMatId()
+        {
+            int id = 0;
+            if (dataGridView_ShowMaterials.SelectedRows.Count > 0)
+            {
+                int index = dataGridView_ShowMaterials.SelectedRows[0].Index;
+                bool converted = Int32.TryParse(dataGridView_ShowMaterials[0, index].Value.ToString(), out id);
+            }
+
+            return id;
         }
     }
 }

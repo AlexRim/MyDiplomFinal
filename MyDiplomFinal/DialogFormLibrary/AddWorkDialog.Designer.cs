@@ -154,6 +154,7 @@
             this.Controls.Add(this.textBox1_WorkName);
             this.Controls.Add(this.label1);
             this.Name = "AddWorkDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddWorkDialog";
             this.ResumeLayout(false);
             this.PerformLayout();
