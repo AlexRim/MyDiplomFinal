@@ -288,7 +288,7 @@ namespace UserControlLibrary
                 else
                 {
                     var cl=new Client();
-                     cl = gb.ClientSet.First(a => a.ClientID > 0);
+                     cl = gb.ClientSet.First(a => a.ClientID >= 0);
                     
                     dataGridView_Contract.DataSource =
                        cl.Contract.Select(

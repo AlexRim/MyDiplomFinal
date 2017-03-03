@@ -397,7 +397,6 @@ namespace UserControlLibrary
             {
                 var contr = await gb.ContractSet.FindAsync(idContr);
                 var work = await gb.WorkSet.FindAsync(workId);
-                //var type = contr.TypeOfWork.FirstOrDefault(a => a.TypeOfWorkName == listBox1_TypesOfWork.SelectedItem.ToString() && a.ContractContractID == idContr);
                 var mat =await gb.MaterialSet.FindAsync(matID);
 
                 work.Material.Remove(mat);
@@ -410,7 +409,7 @@ namespace UserControlLibrary
             }
 
         }
-
+        // method finds material ID
         private int FindMatId()
         {
             int id = 0;
@@ -421,6 +420,67 @@ namespace UserControlLibrary
             }
 
             return id;
+        }
+
+        private async void button_ChangeMat_Click(object sender, EventArgs e)
+        {
+            int idWork = FindWorkId();
+            int idContr = FindIDContract();
+            int idMat = FindMatId();
+            var ch = new AddMaterialDialog();
+           ch.Text = "Редактирование материала";
+            ch.comboBox_MaterialUnit.Items.AddRange(new[] { "кг", "т", "м.п.", "м2", "м3", "шт" });
+            using (var gb = new DBContainer())
+            {
+                var contr = await gb.ContractSet.FindAsync(idContr);
+                var mat = await gb.MaterialSet.FindAsync(idMat);
+                  ch.textBox_MaterialName.Text=mat.MaterialName;
+                 ch.textBox_MaterialAmmount.Text= mat.MaterialAmmount.ToString();
+                ch.comboBox_MaterialUnit.Text = mat.MaterialUnit;
+                ch.textBox_MaterialUnitPrice.Text= mat.MaterialUnitPrice.ToString();
+                double x = mat.MaterialAmmount*mat.MaterialUnitPrice;
+                contr.ContractPrice -= x;
+                if (ch.ShowDialog() == DialogResult.OK)
+                {
+                    mat.MaterialName = ch.textBox_MaterialName.Text;
+                    mat.MaterialAmmount = Convert.ToDouble(ch.textBox_MaterialAmmount.Text);
+                    mat.MaterialUnit = ch.comboBox_MaterialUnit.Text;
+                    mat.MaterialUnitPrice = Convert.ToDouble(ch.textBox_MaterialUnitPrice.Text);
+                }
+                contr.ContractPrice += mat.MaterialUnitPrice * mat.MaterialAmmount;
+                await gb.SaveChangesAsync();
+                RefreshMatData(idMat);
+                RefreshContrData(idContr);
+
+            }
+        }
+
+        private async void dataGridView_ShowMaterials_SelectionChanged(object sender, EventArgs e)
+        {
+        
+        }
+
+        private async void dataGridView_AdWork_SelectionChanged(object sender, EventArgs e)
+        {
+            int workId = FindWorkId();
+            using (var gb = new DBContainer())
+            {
+                var work = await gb.WorkSet.FindAsync(workId);
+                if (work != null)
+                {
+                    RefreshMatData(workId);
+                }
+                else
+                {
+
+                    var w = new Work();
+                    w = gb.WorkSet.First(a => a.WorkID >= 0);
+                   RefreshMatData(w.WorkID);
+              
+                }
+
+            }
+
         }
     }
 }

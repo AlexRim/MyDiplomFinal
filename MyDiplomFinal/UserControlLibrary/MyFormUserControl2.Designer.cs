@@ -40,6 +40,7 @@
             this.dataGridView_ShowMaterials = new System.Windows.Forms.DataGridView();
             this.button_AddMaterial = new System.Windows.Forms.Button();
             this.button_DeleteMaterial = new System.Windows.Forms.Button();
+            this.button_ChangeMat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AdWork)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ShowMaterials)).BeginInit();
@@ -106,6 +107,7 @@
             this.dataGridView_AdWork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_AdWork.Size = new System.Drawing.Size(591, 160);
             this.dataGridView_AdWork.TabIndex = 5;
+            this.dataGridView_AdWork.SelectionChanged += new System.EventHandler(this.dataGridView_AdWork_SelectionChanged);
             // 
             // button_AddWork
             // 
@@ -147,6 +149,7 @@
             this.dataGridView_ShowMaterials.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_ShowMaterials.Size = new System.Drawing.Size(591, 160);
             this.dataGridView_ShowMaterials.TabIndex = 9;
+            this.dataGridView_ShowMaterials.SelectionChanged += new System.EventHandler(this.dataGridView_ShowMaterials_SelectionChanged);
             // 
             // button_AddMaterial
             // 
@@ -168,11 +171,22 @@
             this.button_DeleteMaterial.UseVisualStyleBackColor = true;
             this.button_DeleteMaterial.Click += new System.EventHandler(this.button_DeleteMaterial_Click);
             // 
+            // button_ChangeMat
+            // 
+            this.button_ChangeMat.Location = new System.Drawing.Point(862, 313);
+            this.button_ChangeMat.Name = "button_ChangeMat";
+            this.button_ChangeMat.Size = new System.Drawing.Size(75, 23);
+            this.button_ChangeMat.TabIndex = 12;
+            this.button_ChangeMat.Text = "Редакт.";
+            this.button_ChangeMat.UseVisualStyleBackColor = true;
+            this.button_ChangeMat.Click += new System.EventHandler(this.button_ChangeMat_Click);
+            // 
             // MyFormUserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Controls.Add(this.button_ChangeMat);
             this.Controls.Add(this.button_DeleteMaterial);
             this.Controls.Add(this.button_AddMaterial);
             this.Controls.Add(this.dataGridView_ShowMaterials);
@@ -209,5 +223,6 @@
         public System.Windows.Forms.DataGridView dataGridView_ShowMaterials;
         private System.Windows.Forms.Button button_AddMaterial;
         private System.Windows.Forms.Button button_DeleteMaterial;
+        private System.Windows.Forms.Button button_ChangeMat;
     }
 }
