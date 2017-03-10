@@ -102,6 +102,24 @@ namespace UserControlLibrary
                 var worksClear = type.Work;
                 worksClear.ToList();
                 var work = type.Work.FirstOrDefault(a => a.TypeOfWork == type);
+
+
+
+                try
+                {
+                    var matSum = work.Material.Select(a => a.MaterialAmmount*a.MaterialUnitPrice);
+                    foreach (var i in matSum)
+                    {
+                        contr.ContractPrice -= i;
+                    }           
+                    var workSum = type.Work.Select(a => a.WorkAmmount*a.WorkUnitPrice);
+                    foreach (var i in workSum)
+                    {
+                        contr.ContractPrice -= i;
+                    }
+                }
+                         catch (Exception)
+                { }                              
                 //var matClear = work.Material;
                 //matClear.ToList();
                 //work.Material.Clear();
@@ -123,7 +141,19 @@ namespace UserControlLibrary
                    listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
                 }
                listBox1_TypesOfWork.Refresh();
+                RefreshContrData(id);
+                if (listBox1_TypesOfWork.Items.Count > 0)
+                {
+                    listBox1_TypesOfWork.SelectedIndex = listBox1_TypesOfWork.Items.Count - 1;
+                }
+                else
+                {
+                    dataGridView_AdWork.DataSource=new object();
+                    dataGridView_ShowMaterials.DataSource=new object();
+                }
 
+               
+                
 
 
 
@@ -480,6 +510,11 @@ namespace UserControlLibrary
                 }
 
             }
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
     }

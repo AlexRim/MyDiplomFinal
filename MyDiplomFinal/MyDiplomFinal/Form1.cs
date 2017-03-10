@@ -42,7 +42,7 @@ namespace MyDiplomFinal
             InitializeComponent();
         }
         // shows clients usercontrol
-        private async void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeUserControl(userControl1, userControl2);
             userControl1 = new MyFormUserControl1();
@@ -53,8 +53,8 @@ namespace MyDiplomFinal
             using (var gb = new DBContainer())
             {
                 userControl1.dataGridView1_Client.DataSource =
-               await     gb.ClientSet.Select(a => new {id = a.ClientID, ФИО = a.ClientName, Адрес = a.ClientAdress,УНН=a.ClientUNN,Пасспорт=a.ClientPassport,Тел_Факс=a.ClientPhonePhax})
-                        .ToListAsync();
+                    gb.ClientSet.Select(a => new {id = a.ClientID, ФИО = a.ClientName, Адрес = a.ClientAdress,УНН=a.ClientUNN,Пасспорт=a.ClientPassport,Тел_Факс=a.ClientPhonePhax})
+                        .ToList();
                 userControl1.dataGridView1_Client.Columns[0].Visible = false;
                
             }
@@ -100,6 +100,25 @@ namespace MyDiplomFinal
 
             }
 
+        }
+
+        private void расчетСтоимостиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChooseFolder();
+        }
+
+        public void ChooseFolder()
+        {
+            var folderBrowserDialog1 = new FolderBrowserDialog();
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //textBox1.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+  
         }
     }
 }

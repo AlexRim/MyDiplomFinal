@@ -15,6 +15,7 @@ using DialogFormLibrary;
 
 
 
+
 namespace UserControlLibrary
 {
     public delegate int FindCurrentContract();
@@ -117,6 +118,11 @@ namespace UserControlLibrary
         private async void button1_AddClient_Click(object sender, EventArgs e)
         {
             var add = new ClientDialog();
+            if (add.radioButton1.Checked = true)
+            {
+                add.textBox_ClientPassport.Enabled = false;
+            }
+            add.Text = "Добавить клиента";
             using (var gb = new DBContainer())
             {
                 var client=new Client();
@@ -264,7 +270,7 @@ namespace UserControlLibrary
 
         private async void dataGridView1_Client_SelectionChanged(object sender, EventArgs e)
         {
-
+      
             using (var gb = new DBContainer())
             {
                 int id = FindClientID();
@@ -429,6 +435,64 @@ MessageBoxIcon.Question);
 
             }
 
+        }
+        //AddBank event
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            int id = FindClientID();
+           var b=new Bank();
+            using (var gb=new DBContainer())
+            {               
+                var client =await gb.ClientSet.FindAsync(id);
+                      
+                if ( client.Bank==null )
+                {
+                    var result = MessageBox.Show("Банк не добавлен, желаете добавить банк?", "Внимание!", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                        return;
+                    var add=new AddBankDialog();
+                    add.Text = "Добавление банка";
+                    if (add.ShowDialog() == DialogResult.OK)
+                    {
+                        b.BankName = add.textBox_BankName.Text;
+                        b.BankCode = add.textBox_BankCode.Text;
+                        b.BankPhonePhax = add.textBox_PhonePhax.Text;
+                        b.BankUNN = add.textBox_BankUNN.Text;
+                        client.Bank = b;
+                       await gb.SaveChangesAsync();
+                        MessageBox.Show("Банк добавлен");
+                    }
+                }
+                else
+                {
+                    var add = new AddBankDialog();
+                    add.textBox_BankName.Text = client.Bank.BankName;
+                    add.textBox_BankName.Enabled = false;
+                    add.textBox_BankCode.Text = client.Bank.BankCode;
+                    add.textBox_BankCode.Enabled = false;
+                    add.textBox_PhonePhax.Text = client.Bank.BankPhonePhax;
+                    add.textBox_PhonePhax.Enabled = false;
+                    add.textBox_BankUNN.Text = client.Bank.BankUNN;
+                    add.textBox_BankUNN.Enabled = false;
+                    add.checkBox_EditBankInfo.Checked = true;
+                    if (add.ShowDialog() == DialogResult.OK)
+                    {
+                        client.Bank.BankName = add.textBox_BankName.Text;
+                        client.Bank.BankCode = add.textBox_BankCode.Text;
+                        client.Bank.BankPhonePhax = add.textBox_PhonePhax.Text;
+                        client.Bank.BankUNN = add.textBox_BankUNN.Text;
+                        await gb.SaveChangesAsync();                  
+                    }
+
+                }
+            }
+
+        }
+
+        private void MyFormUserControl1_Load(object sender, EventArgs e)
+        {
+          
         }
     }
 }
