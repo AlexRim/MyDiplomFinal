@@ -68,6 +68,7 @@
             // 
             // расчетыToolStripMenuItem
             // 
+            this.расчетыToolStripMenuItem.Enabled = false;
             this.расчетыToolStripMenuItem.Name = "расчетыToolStripMenuItem";
             this.расчетыToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.расчетыToolStripMenuItem.Text = "расчеты";
@@ -80,34 +81,38 @@
             this.проектДоговораToolStripMenuItem,
             this.протоколСоглToolStripMenuItem,
             this.коммерческоеПредлToolStripMenuItem});
+            this.выводToolStripMenuItem.Enabled = false;
             this.выводToolStripMenuItem.Name = "выводToolStripMenuItem";
             this.выводToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.выводToolStripMenuItem.Text = "отчеты";
+            this.выводToolStripMenuItem.Click += new System.EventHandler(this.выводToolStripMenuItem_Click);
             // 
             // расчетСтоимостиToolStripMenuItem
             // 
             this.расчетСтоимостиToolStripMenuItem.Name = "расчетСтоимостиToolStripMenuItem";
-            this.расчетСтоимостиToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.расчетСтоимостиToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.расчетСтоимостиToolStripMenuItem.Text = "расчет";
             this.расчетСтоимостиToolStripMenuItem.Click += new System.EventHandler(this.расчетСтоимостиToolStripMenuItem_Click);
             // 
             // проектДоговораToolStripMenuItem
             // 
             this.проектДоговораToolStripMenuItem.Name = "проектДоговораToolStripMenuItem";
-            this.проектДоговораToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.проектДоговораToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.проектДоговораToolStripMenuItem.Text = "договор";
+            this.проектДоговораToolStripMenuItem.Click += new System.EventHandler(this.проектДоговораToolStripMenuItem_Click);
             // 
             // протоколСоглToolStripMenuItem
             // 
             this.протоколСоглToolStripMenuItem.Name = "протоколСоглToolStripMenuItem";
-            this.протоколСоглToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.протоколСоглToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.протоколСоглToolStripMenuItem.Text = "протокол";
             // 
             // коммерческоеПредлToolStripMenuItem
             // 
             this.коммерческоеПредлToolStripMenuItem.Name = "коммерческоеПредлToolStripMenuItem";
-            this.коммерческоеПредлToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.коммерческоеПредлToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.коммерческоеПредлToolStripMenuItem.Text = "предложение";
+            this.коммерческоеПредлToolStripMenuItem.Click += new System.EventHandler(this.коммерческоеПредлToolStripMenuItem_Click);
             // 
             // справочникиToolStripMenuItem
             // 
@@ -123,12 +128,14 @@
             this.расценкиToolStripMenuItem.Name = "расценкиToolStripMenuItem";
             this.расценкиToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.расценкиToolStripMenuItem.Text = "расценки";
+            this.расценкиToolStripMenuItem.Click += new System.EventHandler(this.расценкиToolStripMenuItem_Click);
             // 
             // материалыToolStripMenuItem
             // 
             this.материалыToolStripMenuItem.Name = "материалыToolStripMenuItem";
             this.материалыToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.материалыToolStripMenuItem.Text = "материалы";
+            this.материалыToolStripMenuItem.Click += new System.EventHandler(this.материалыToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 

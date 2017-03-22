@@ -12,7 +12,11 @@ using  EntityDataBaseLibrary;
 using  DialogFormLibrary;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-
+/// //////////////
+ using System.Text;
+using System.IO;
+using System.Reflection;
+using Word = Microsoft.Office.Interop.Word;
 
 
 namespace MyDiplomFinal
@@ -30,11 +34,13 @@ namespace MyDiplomFinal
             {
                 Controls.Remove(userControl1);
                 userControl1.Dispose();
+         
             }
             if (userControl2 != null)
             {
                 Controls.Remove(userControl2);
                 userControl2.Dispose();
+              
             }
         }
         public Form1()
@@ -58,53 +64,75 @@ namespace MyDiplomFinal
                 userControl1.dataGridView1_Client.Columns[0].Visible = false;
                
             }
+            расчетыToolStripMenuItem.Enabled = true;
 
         }
         //shows counts usercontrol
         private async void расчетыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindCurrentContract find = new FindCurrentContract(userControl1.FindContractId);
-            int id = find();
-            ChangeUserControl(userControl1, userControl2);
-            userControl2 = new MyFormUserControl2();
-            this.Controls.Add(userControl2);
-            userControl2.Top = 25;
-            userControl2.Left = 0;
-            
-            using (var gb = new DBContainer())
-            {             
-                IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == id);
-                var con = query;
-             await  query.ToListAsync();
-                userControl2.dataGridView2_Contr.DataSource= await query.Select(a=>new
+            try
+            {
+
+
+
+                FindCurrentContract find = new FindCurrentContract(userControl1.FindContractId);
+                int id = find();
+                ChangeUserControl(userControl1, userControl2);
+                userControl2 = new MyFormUserControl2();
+                this.Controls.Add(userControl2);
+                userControl2.Top = 25;
+                userControl2.Left = 0;
+
+                using (var gb = new DBContainer())
                 {
-                    Id = a.ContractID,
-                    Номер = a.ContractNumber,
-                    Объект = a.ContractObject,
-                    Дата = a.ContractDate,
-                    Цена = a.ContractPrice,
-                    Статус = a.ContractStatus
-                }).ToListAsync();
-                userControl2.dataGridView2_Contr.Columns[0].Visible = false;
-                var typeQuery = from TypeOfWork in gb.TypeOfWorkSet
-                    where TypeOfWork.ContractContractID == id
-                    select TypeOfWork;
-                typeQuery.ToList();
-                foreach (var i in typeQuery)
-                {
-                       userControl2.listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
+                    IQueryable<Contract> query = gb.ContractSet.Where(a => a.ContractID == id);
+                    var con = query;
+                    await query.ToListAsync();
+                    userControl2.dataGridView2_Contr.DataSource = await query.Select(a => new
+                    {
+                        Id = a.ContractID,
+                        Номер = a.ContractNumber,
+                        Объект = a.ContractObject,
+                        Дата = a.ContractDate,
+                        Цена = a.ContractPrice,
+                        Статус = a.ContractStatus
+                    }).ToListAsync();
+                    userControl2.dataGridView2_Contr.Columns[0].Visible = false;
+                    var typeQuery = from TypeOfWork in gb.TypeOfWorkSet
+                        where TypeOfWork.ContractContractID == id
+                        select TypeOfWork;
+                    typeQuery.ToList();
+                    foreach (var i in typeQuery)
+                    {
+                        userControl2.listBox1_TypesOfWork.Items.Add(i.TypeOfWorkName);
+                    }
+                    userControl2.listBox1_TypesOfWork.Refresh();
+                    if (userControl2.listBox1_TypesOfWork.Items.Count != 0)
+                        userControl2.listBox1_TypesOfWork.SelectedIndex = 0;
+
                 }
-                userControl2.listBox1_TypesOfWork.Refresh();
-                if(userControl2.listBox1_TypesOfWork.Items.Count!=0)
-                userControl2.listBox1_TypesOfWork.SelectedIndex = 0;
+                this.выводToolStripMenuItem.Enabled = true;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show(@"Должна быть активна вкладка клиенты");
 
             }
-
         }
 
         private void расчетСтоимостиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChooseFolder();
+            /////////////
+            string str = PrintShapka();
+            string str1 = PrintRaschet();
+            string st = str + str1;
+            Word.Application wordapp;
+            wordapp = new Word.Application();
+            wordapp.Visible = true;
+            wordapp.Documents.Add();
+            wordapp.Selection.Text = st;
+
         }
 
         public void ChooseFolder()
@@ -120,5 +148,130 @@ namespace MyDiplomFinal
         {
   
         }
+
+        private void проектДоговораToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void коммерческоеПредлToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void расценкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Данный функционал в разработке!");
+        }
+
+        private void материалыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Данный функционал в разработке!");
+        }
+
+        private void выводToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+         
+        }
+
+        public string PrintShapka()
+        {
+ string str = "";
+
+            using (var gb = new DBContainer())
+            {
+                int id = this.userControl2.FindIDContract();
+                var contr = gb.ContractSet.Find(id);
+              
+           string     str1 = "Наименование объекта: " + contr.ContractObject+"\n";
+                string str2 = "Заказчик: " + contr.Client.ClientName+"\n"; 
+                string str3=@"Подрядчик: ЧСУП Лейпкомпани"+"\n\n";
+                string str4 = "\t\t\t\t\tРАСЧЕТ СТОИМОСТИ\n";
+                str = str1 + str2 + str3 + str4;
+            }
+            return str;
+        }
+
+        public string PrintRaschet()
+        {
+            string str = "";
+            using (var gb = new DBContainer())
+            {
+                int id = this.userControl2.FindIDContract();
+
+                var contr = gb.ContractSet.Find(id);
+                var cl = gb.ClientSet.First(a => a.ClientID == contr.ClientClientID);
+                //IQueryable<TypeOfWork> query = from TypeOfWork in gb.TypeOfWorkSet
+                //                               where TypeOfWork.ContractContractID == id
+                //                               select TypeOfWork;
+                
+                List<TypeOfWork> typeOfWorks = gb.TypeOfWorkSet.Where(a => a.ContractContractID == id).ToList();
+                str = "\t\t\t\t\t\t Работы\n";
+                foreach (var b in typeOfWorks)
+                {
+
+                    str+=b.TypeOfWorkName + ":\n";
+                    foreach (var a in b.Work)
+                    {
+                       
+                       str+=a.WorkName + "\t" + a.WorkAmmount + " " + a.WorkUnit + "\tцена ед. " +
+                                     a.WorkUnitPrice + " руб.\t" +
+                                     "\tcтоимость: " + a.WorkAmmount * a.WorkUnitPrice+" руб."+"\n";
+                    }
+
+                }
+                str+= "\n\t\t\t\t\t\t Материалы\n";
+                List<Work> work=new List<Work>();
+                foreach (var i in typeOfWorks)
+                {
+                    foreach (var b in i.Work)
+                    {
+                       work.Add(b); 
+                    }
+                }
+
+                foreach (var i in work)
+                {
+                    if (i.Material.Count != 0)
+                    {
+                        str += i.WorkName + "\n";
+                        foreach (var z in i.Material)
+                        {
+                            str += z.MaterialName + "\t" + z.MaterialAmmount + " " + z.MaterialUnit + "\t цена ед. " +
+                                   z.MaterialUnitPrice +
+                                   " руб." + "\tcтоимость: " + z.MaterialAmmount*z.MaterialUnitPrice + " руб." + "\n";
+                        }
+                    }
+
+
+                }
+                str+="\r\n" + "Всего стоимость работ на объекте: "+contr.ContractObject+" составляет: " + contr.ContractPrice +
+             " белорусских рублей\n";
+                double q=0;
+                double q1 = 0;
+                foreach (var i in work)
+                {
+                    q += i.WorkUnitPrice*i.WorkAmmount;
+                    foreach (var z in i.Material)
+                    {
+                        q1 += z.MaterialAmmount*z.MaterialUnitPrice;
+                    }
+                }
+                
+
+                str += "в том числе:\n"+q+" руб."+" -стоимость работ\n"+q1+ " руб." + " -стоимость материалов";
+
+               str +="\r\n\r\n\r\n";
+
+               str+=" Заказчик _______________ " + "\t\t\t\t" + "Подрядчик _______________\n";
+               str += cl.ClientName + "\t\t\t\t\t" + "Директор ЧСУП Лейпкомпани\n";
+                str += "\t\t\t\t\t\t\t" + "Лесько В.Н.";
+
+
+            }
+
+            return str;
+        }
+
     }
 }

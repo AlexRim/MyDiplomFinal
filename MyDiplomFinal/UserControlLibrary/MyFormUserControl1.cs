@@ -117,43 +117,85 @@ namespace UserControlLibrary
         // event adds new client
         private async void button1_AddClient_Click(object sender, EventArgs e)
         {
-            var add = new ClientDialog();
-            if (add.radioButton1.Checked = true)
+            try
             {
-                add.textBox_ClientPassport.Enabled = false;
-            }
-            add.Text = "Добавить клиента";
-            using (var gb = new DBContainer())
-            {
-                var client=new Client();
-                if (add.ShowDialog() == DialogResult.OK)
+                X:
+                var add = new ClientDialog();
+                if (add.radioButton1.Checked = true)
                 {
-                    client.ClientUNN = add.textBox_ClientUNN.Text;
-                    client.ClientPassport = add.textBox_ClientPassport.Text;
-                    client.ClientPhonePhax = add.textBox_ClintPhone.Text;
-                    client.ClientAdress = add.textBox1_ClientAdress.Text;
-                    client.ClientName = add.textBox1_ClientName.Text;
-                    if (  await      gb.ClientSet.FirstOrDefaultAsync(
-            a => a.ClientUNN == client.ClientUNN && a.ClientPassport == client.ClientPassport) != null)
+                    add.textBox_ClientPassport.Enabled = false;
+                }
+                add.Text = "Добавить клиента";
+                using (var gb = new DBContainer())
+                {
+
+
+
+
+                    var client = new Client();
+                    if (add.ShowDialog() == DialogResult.OK)
                     {
-                        MessageBox.Show("Такой клиент есть в базе!");
-                        return;
+
+                        client.ClientUNN = add.textBox_ClientUNN.Text;
+                        client.ClientPassport = add.textBox_ClientPassport.Text;
+                        client.ClientPhonePhax = add.textBox_ClintPhone.Text;
+                        client.ClientAdress = add.textBox1_ClientAdress.Text;
+                        client.ClientName = add.textBox1_ClientName.Text;
+
+                        if (await gb.ClientSet.FirstOrDefaultAsync(
+                            a => a.ClientUNN == client.ClientUNN && a.ClientPassport == client.ClientPassport) != null)
+                        {
+                            MessageBox.Show("Такой клиент есть в базе!");
+                            return;
+                        }
+
+                        if (add.textBox1_ClientName.Text.Length == 0)
+                        {
+                            MessageBox.Show(@"Поле название/ФИО должно быть заполнено!");
+                            goto X;
+                        }
+                        if (add.textBox1_ClientAdress.Text.Length == 0)
+                        {
+                            MessageBox.Show(@"Поле адрес должно быть заполнено!");
+                            goto X;
+                        }
+                        if (add.textBox_ClientPassport.Enabled == true && add.textBox_ClientPassport.Text.Length == 0)
+                        {
+                            MessageBox.Show(@"Поле № пасспорта должно быть заполнено!");
+                            goto X;
+                        }
+                        if (add.textBox_ClientUNN.Enabled == true && add.textBox_ClientUNN.Text.Length == 0)
+                        {
+                            MessageBox.Show(@"Поле УНН должно быть заполнено!");
+                            goto X;
+                        }
+                        if (add.textBox_ClientUNN.Enabled == true && add.textBox_ClientUNN.Text.Length < 9)
+                        {
+                            MessageBox.Show(@"Поле УНН должно иметь 9 символов!");
+                            goto X;
+                        }
+                        if (add.textBox_ClientPassport.Enabled == true && add.textBox_ClientPassport.Text.Length < 9)
+                        {
+                            MessageBox.Show(@"Поле № пасспорта должно иметь 9 символов!");
+                            goto X;
+                        }
+
+                        gb.ClientSet.Add(client);
+                        await gb.SaveChangesAsync();
+                        MessageBox.Show("Клиент успешно добавлен!");
+                        RefreshClientDataView();
                     }
-                    gb.ClientSet.Add(client);
-                    await  gb.SaveChangesAsync();
-                    MessageBox.Show("Клиент успешно добавлен!");
-                    RefreshClientDataView();
-                   // int z = gb.ClientSet.Count()-2;
-                   //int y= dataGridView1_Client.Rows.Count;
-                   // if (dataGridView1_Client.Rows.Count > 0)
-                   // {
-                   //     dataGridView1_Client.Rows[3].Selected=true;
-                   // }
 
                 }
-
-
             }
+            catch (Exception)
+            {
+
+                throw;
+                MessageBox.Show("Неправильно введены данные!");
+            }
+
+
         }
         //event deletes client
         private async void button1_DeleClient_Click(object sender, EventArgs e)
@@ -180,92 +222,165 @@ namespace UserControlLibrary
         // event changes clents information
         private async void button1_ChangeClient_Click(object sender, EventArgs e)
         {
-            var add =  new ClientDialog();
-            add.Text = "Редактировать клиента";
-            var client = new Client();
-            using (var gb = new DBContainer())
+            try
             {
-                client = await gb.ClientSet.FindAsync(FindClientID());
-                add.textBox1_ClientName.Text = client.ClientName;
-                add.textBox_ClintPhone.Text = client.ClientPhonePhax;
-                add.textBox1_ClientAdress.Text = client.ClientAdress;
-                add.textBox_ClientUNN.Text = client.ClientUNN;
-                add.textBox_ClientPassport.Text = client.ClientPassport;
 
-                if (add.ShowDialog() == DialogResult.OK)
+
+
+                Z:
+                var add = new ClientDialog();
+                add.Text = "Редактировать клиента";
+                var client = new Client();
+                using (var gb = new DBContainer())
                 {
+                    client = await gb.ClientSet.FindAsync(FindClientID());
+                    add.textBox1_ClientName.Text = client.ClientName;
+                    add.textBox_ClintPhone.Text = client.ClientPhonePhax;
+                    add.textBox1_ClientAdress.Text = client.ClientAdress;
+                    add.textBox_ClientUNN.Text = client.ClientUNN;
+                    add.textBox_ClientPassport.Text = client.ClientPassport;
+                    if (add.textBox_ClientPassport.Text.Length == 0)
+                    {
+                        add.radioButton1.Checked = true;
+                        add.textBox_ClientPassport.Enabled = false;
+                    }
+                    if (add.textBox_ClientUNN.Text.Length == 0)
+                    {
+                        add.radioButton2.Checked = true;
+                        add.textBox_ClientUNN.Enabled = false;
+                    }
+                    if (add.ShowDialog() == DialogResult.OK)
+                    {
 
-                    client.ClientUNN = add.textBox_ClientUNN.Text;
-                    client.ClientPassport = add.textBox_ClientPassport.Text;
-                    client.ClientPhonePhax = add.textBox_ClintPhone.Text;
-                    client.ClientAdress = add.textBox1_ClientAdress.Text;
-                    client.ClientName = add.textBox1_ClientName.Text;
+                        client.ClientUNN = add.textBox_ClientUNN.Text;
+                        client.ClientPassport = add.textBox_ClientPassport.Text;
+                        client.ClientPhonePhax = add.textBox_ClintPhone.Text;
+                        client.ClientAdress = add.textBox1_ClientAdress.Text;
+                        client.ClientName = add.textBox1_ClientName.Text;
 
+                    }
+                    var result = MessageBox.Show("Вы уверены что хотите сохранить изменения?", "Внимание!",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                    if (add.textBox1_ClientName.Text.Length == 0)
+                    {
+                        MessageBox.Show(@"Поле название/ФИО должно быть заполнено!");
+                        goto Z;
+                    }
+                    if (add.textBox1_ClientAdress.Text.Length == 0)
+                    {
+                        MessageBox.Show(@"Поле адрес должно быть заполнено!");
+                        goto Z;
+                    }
+                    if (add.textBox_ClientPassport.Enabled == true && add.textBox_ClientPassport.Text.Length == 0)
+                    {
+                        MessageBox.Show(@"Поле № пасспорта должно быть заполнено!");
+                        goto Z;
+                    }
+                    if (add.textBox_ClientUNN.Enabled == true && add.textBox_ClientUNN.Text.Length == 0)
+                    {
+                        MessageBox.Show(@"Поле УНН должно быть заполнено!");
+                        goto Z;
+                    }
+                    if (add.textBox_ClientUNN.Enabled == true && add.textBox_ClientUNN.Text.Length < 9)
+                    {
+                        MessageBox.Show(@"Поле УНН должно иметь 9 символов!");
+                        goto Z;
+                    }
+                    if (add.textBox_ClientPassport.Enabled == true && add.textBox_ClientPassport.Text.Length < 9)
+                    {
+                        MessageBox.Show(@"Поле № пасспорта должно иметь 9 символов!");
+                        goto Z;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данные о клиенте успешно изменены");
+                    }
+
+                    await gb.SaveChangesAsync();
+
+                    RefreshClientDataView();
                 }
-                var result = MessageBox.Show("Вы уверены что хотите сохранить изменения?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No)
-                {
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Данные о клиенте успешно изменены");
-                }
+            }
+            catch (Exception)
+            {
 
-                await gb.SaveChangesAsync();
-
-                RefreshClientDataView();
+                throw;
+                MessageBox.Show("Недопустимое действие!");
             }
         }
         //event adds contract to client
         private async void button_AddContractToClient_Click(object sender, EventArgs e)
         {
-            int iD = FindClientID();
-            var add=new AddContractDialog();
-            add.radioButton_Status1.Checked = true;
-            using (var gb = new DBContainer())
+            try
             {
-                
-                var contract=new Contract();
-                var currentClient = await gb.ClientSet.FindAsync(FindClientID());
-                int z = currentClient.Contract.Count+1;
-                add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + z;
-                add.textBox_ContractDate.Text = DateTime.Now.ToString(@"dd/MM/yyyy");
-                if (add.ShowDialog() == DialogResult.OK)
+
+
+
+                C:
+                int iD = FindClientID();
+                var add = new AddContractDialog();
+                add.radioButton_Status1.Checked = true;
+                add.Text = "Добавить договор";
+                using (var gb = new DBContainer())
                 {
-                    contract.ContractDate = add.textBox_ContractDate.Text;
-                    contract.ContractNumber = add.textBox_ContractNumber.Text;
-                    contract.ContractPrice = Convert.ToDouble(add.textBox_ContractPrice.Text);
-                    contract.ContractObject = add.textBox_ContractObject.Text;
-                    foreach (RadioButton radio in add.Controls.OfType<RadioButton>())
+
+                    var contract = new Contract();
+                    var currentClient = await gb.ClientSet.FindAsync(FindClientID());
+                    int z = currentClient.Contract.Count + 1;
+                    add.textBox_ContractNumber.Text = "№ " + DateTime.Now.ToString((@"dd/MM/yyyy")) + "-" + z;
+                    add.textBox_ContractDate.Text = DateTime.Now.ToString(@"dd/MM/yyyy");
+                    double b;
+                    if (add.ShowDialog() == DialogResult.OK)
                     {
-                        if (radio.Checked == true)
+                        contract.ContractDate = add.textBox_ContractDate.Text;
+                        contract.ContractNumber = add.textBox_ContractNumber.Text;
+                        contract.ContractPrice = Convert.ToDouble(add.textBox_ContractPrice.Text);
+                        contract.ContractObject = add.textBox_ContractObject.Text;
+                        foreach (RadioButton radio in add.Controls.OfType<RadioButton>())
                         {
-                            contract.ContractStatus = radio.Text;
+                            if (radio.Checked == true)
+                            {
+                                contract.ContractStatus = radio.Text;
+                            }
                         }
+
+                        if (add.textBox_ContractObject.Text.Length == 0)
+                        {
+                            MessageBox.Show("Поле предмет договора не может быть пустым!");
+                            goto C;
+                        }
+
+                        var result2 = MessageBox.Show("Вы уверены что хотите сохранить договор?", "Внимание!",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result2 == DialogResult.No)
+                        {
+                            return;
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("Договор добавлен");
+                        }
+
+
+                        currentClient.Contract.Add(contract);
+
+                        await gb.SaveChangesAsync();
+                        ShowCurrentClientContracts();
                     }
 
-                    var result2 = MessageBox.Show("Вы уверены что хотите сохранить договор?", "Внимание!",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result2 == DialogResult.No)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Договор добавлен");
-                    }
-
-                    //customer = gb.CustomerSet.First(a => a.CustomerId == id);
-
-                    currentClient.Contract.Add(contract);
-
-                    await gb.SaveChangesAsync();
-                    ShowCurrentClientContracts();
                 }
-
             }
+            catch (Exception)
+            {
 
+                MessageBox.Show("Не корректно введены данные!");
+             return;
+            }
         }
 
         private async void dataGridView1_Client_SelectionChanged(object sender, EventArgs e)

@@ -16,5 +16,20 @@ namespace DialogFormLibrary
         {
             InitializeComponent();
         }
+
+        private void textBox_ContractPrice_Validating(object sender, CancelEventArgs e)
+        {
+            string str = textBox_ContractPrice.Text;
+            double result;
+            bool z = double.TryParse(str, out result);
+            if (z == false || str.Length == 0 || result < 0)
+            {
+                e.Cancel = true;
+
+            }
+            else
+
+                e.Cancel = false;
+        }
     }
 }

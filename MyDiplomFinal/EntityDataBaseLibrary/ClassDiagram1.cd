@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EntityDataBaseLibrary.DBContainer">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAQAgAAAAAAAAAAAMAAAAAAAgBAAAAAAAAA=</HashCode>
+      <FileName>DB.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityDataBaseLibrary.Bank">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAABAAAAAAAADAAAAACAAQ=</HashCode>
+      <FileName>Bank.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityDataBaseLibrary.Client">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCAAAAAAAIAAAAgEAAAAAAAAAAAEAAAQAAIAAAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityDataBaseLibrary.Contract">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAQAAIAAgABAAIAAAEABAAAAAQ=</HashCode>
+      <FileName>Contract.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityDataBaseLibrary.Material">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAABAAgAAAACAAAAAAAAACAAAAAAAEAAgA=</HashCode>
+      <FileName>Material.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityDataBaseLibrary.TypeOfWork">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAABCAAAAAAAAAAAAAAAIAAAAAAE=</HashCode>
+      <FileName>TypeOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityDataBaseLibrary.Work">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAACgAAQAAAAAAAAgAAAAAEAIAAEAAA=</HashCode>
+      <FileName>Work.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

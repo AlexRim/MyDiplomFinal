@@ -16,5 +16,40 @@ namespace DialogFormLibrary
         {
             InitializeComponent();
         }
+
+        private void textBox_MaterialAmmount_Validating(object sender, CancelEventArgs e)
+        {
+            string str = textBox_MaterialAmmount.Text;
+            double result;
+            bool z = double.TryParse(str, out result);
+            if (z == false || str.Length == 0 || result <= 0)
+            {
+                e.Cancel = true;
+
+            }
+            else
+
+                e.Cancel = false;
+        }
+
+        private void textBox_MaterialUnitPrice_Validating(object sender, CancelEventArgs e)
+        {
+            string str = textBox_MaterialUnitPrice.Text;
+            double result;
+            bool z = double.TryParse(str, out result);
+            if (z == false || str.Length == 0 || result <= 0)
+            {
+                e.Cancel = true;
+
+            }
+            else
+
+                e.Cancel = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Данный функционал в разработке!");
+        }
     }
 }

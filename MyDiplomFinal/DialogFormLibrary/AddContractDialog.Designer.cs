@@ -108,6 +108,7 @@
             this.textBox_ContractPrice.Size = new System.Drawing.Size(200, 20);
             this.textBox_ContractPrice.TabIndex = 7;
             this.textBox_ContractPrice.Text = "0";
+            this.textBox_ContractPrice.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_ContractPrice_Validating);
             // 
             // radioButton_Status1
             // 

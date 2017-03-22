@@ -193,7 +193,7 @@
             this.Controls.Add(this.button1_AddClient);
             this.Controls.Add(this.dataGridView1_Client);
             this.Name = "MyFormUserControl1";
-            this.Size = new System.Drawing.Size(920, 500);
+            this.Size = new System.Drawing.Size(920, 470);
             this.Load += new System.EventHandler(this.MyFormUserControl1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_Client)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Contract)).EndInit();

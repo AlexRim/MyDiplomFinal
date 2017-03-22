@@ -88,6 +88,7 @@
             // textBox_ClientUNN
             // 
             this.textBox_ClientUNN.Location = new System.Drawing.Point(30, 137);
+            this.textBox_ClientUNN.MaxLength = 9;
             this.textBox_ClientUNN.Name = "textBox_ClientUNN";
             this.textBox_ClientUNN.Size = new System.Drawing.Size(188, 20);
             this.textBox_ClientUNN.TabIndex = 5;
@@ -104,6 +105,7 @@
             // textBox_ClientPassport
             // 
             this.textBox_ClientPassport.Location = new System.Drawing.Point(30, 176);
+            this.textBox_ClientPassport.MaxLength = 9;
             this.textBox_ClientPassport.Name = "textBox_ClientPassport";
             this.textBox_ClientPassport.Size = new System.Drawing.Size(188, 20);
             this.textBox_ClientPassport.TabIndex = 7;

@@ -234,7 +234,7 @@
             this.Controls.Add(this.listBox1_TypesOfWork);
             this.Controls.Add(this.dataGridView2_Contr);
             this.Name = "MyFormUserControl2";
-            this.Size = new System.Drawing.Size(920, 500);
+            this.Size = new System.Drawing.Size(920, 470);
             this.Load += new System.EventHandler(this.MyFormUserControl2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2_Contr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AdWork)).EndInit();
