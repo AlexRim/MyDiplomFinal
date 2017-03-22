@@ -593,5 +593,10 @@ namespace UserControlLibrary
         {
 
         }
+
+        private void button_FindTypeOfWork_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("В разработке");
+        }
     }
 }

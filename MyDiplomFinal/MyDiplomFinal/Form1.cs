@@ -151,12 +151,17 @@ namespace MyDiplomFinal
 
         private void проектДоговораToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Данный модуль в процессе разработки");
         }
 
         private void коммерческоеПредлToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            string str = PrintCommerce();
+            Word.Application wordapp2;
+            wordapp2 = new Word.Application();
+            wordapp2.Visible = true;
+            wordapp2.Documents.Add();
+            wordapp2.Selection.Text = str;
         }
 
         private void расценкиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -201,9 +206,7 @@ namespace MyDiplomFinal
 
                 var contr = gb.ContractSet.Find(id);
                 var cl = gb.ClientSet.First(a => a.ClientID == contr.ClientClientID);
-                //IQueryable<TypeOfWork> query = from TypeOfWork in gb.TypeOfWorkSet
-                //                               where TypeOfWork.ContractContractID == id
-                //                               select TypeOfWork;
+     
                 
                 List<TypeOfWork> typeOfWorks = gb.TypeOfWorkSet.Where(a => a.ContractContractID == id).ToList();
                 str = "\t\t\t\t\t\t Работы\n";
@@ -272,6 +275,100 @@ namespace MyDiplomFinal
 
             return str;
         }
+
+        private void протоколСоглToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string str= PrintProtokol();
+            Word.Application wordapp1;
+            wordapp1 = new Word.Application();
+            wordapp1.Visible = true;
+            wordapp1.Documents.Add();
+         wordapp1.Selection.Text = str;
+        }
+
+        public string PrintProtokol()
+        {
+            string str = "";
+
+            using (var gb = new DBContainer())
+            {
+                int id = this.userControl2.FindIDContract();
+
+                var contr = gb.ContractSet.Find(id);
+                var cl = gb.ClientSet.First(a => a.ClientID == contr.ClientClientID);
+
+
+                str+= "\n\n\n\n" + "\t\t\t\t\tПРОТОКОЛ\n"
+                      + "\t\t\t\tсогласования договорной цены\n" +
+                      "\tЧСУП Лейпкомпани, именуемое в дальнейшем  ИСПОЛНИТЕЛЬ, в лице директора Лесько В.Н., действующего на основании Устава," +
+                      " с одной стороны, и " + cl.ClientName +
+                      " в лице              , действующего на основании Устава, именуемое в дальнейшем ЗАКАЗЧИК, с другой стороны, " +
+                      "подписали настоящий протокол:\n" +
+                      "Стоимость работ по Договору " + contr.ContractNumber + " от " + contr.ContractDate +
+                      " составляет: " + contr.ContractPrice + " белоруских рублей\n" +
+                      "Итоговая стоимость работ: " + contr.ContractPrice + " руб.\n\n";
+str+=@"Стоимость работ, определенная в соответствии с настоящим Договором по объему работ, на основании расчета стоимости, являющимся неотъемлемой частью упомянутого Договора, является окончательной и пересмотру не подлежит.
+ 
+От Иполнителя                                                                                 От Заказчика
+______________                                                                                 ______________
+М.П.                                                                                                    М.П.
+
+";
+
+            }
+            return str;
+        }
+
+        public string PrintCommerce()
+        {
+            string str = "";
+
+            using (var gb = new DBContainer())
+            {
+                int id = this.userControl2.FindIDContract();
+
+                var contr = gb.ContractSet.Find(id);
+                var cl = gb.ClientSet.First(a => a.ClientID == contr.ClientClientID);
+
+                str += "\n\n\n\n\n\n\n\n\n" + "\t\t\t\t\tКоммерческое предложение\n " + "\t От " +
+                       DateTime.Now.ToString(@"dd/MM/yyyy") + "\n" + "\tКому: " + cl.ClientName + "\n";
+                str += "\t" + @"ЧСУП Лейпкомпани" +
+                       "220009 г. Минск, ул. Шугаева 8, оф.3,тел. 258-73-25,факс 258-73-25," +
+                       " УНН 235847874\n";
+                str += "\tИзучив направленный  Вами запрос предложений цены, мы, нижеподписавшиеся,   " +
+                       "предлагаем осуществить оказание услуг (выполнение работ) на объекте: " + contr.ContractObject +
+                       " "
+                       + "на сумму: " + contr.ContractPrice + " " + "белоруских рублей, подтвержденную прилагаемым расчетом" +
+                       " стоимости\n";
+                str += "\tПредставленное коммерческое предложение действительно в течение 45" +
+                       " календарных дней с момента регистрации\n";
+                str += "\t  Мы  обязуемся  в  случае  принятия  нашего  коммерческого предложения " +
+                       " заключить договор в соответствии  с прилагаемым проектом договора и " +
+                       "выполнить работы в соответствии с требованиями  запроса предложений\n";
+                str +=
+                    "\tМы признаем, что направление  заказчиком  запроса  предложений  и представление подрядчиком (исполнителем) " +
+                    "коммерческого предложения не накладывает  на  стороны никаких дополнительных обязательств.\n\n\n";
+                str += "\tДиректор\n \tЧСУП Лейпкомпани\t\t\t\t\t\t\t\tЛесько В.Н.";
+
+
+
+
+
+
+
+
+
+
+
+            }
+            return str;
+        }
+
+
+
+
+
+
 
     }
 }

@@ -202,6 +202,7 @@
             this.button_FindTypeOfWork.TabIndex = 14;
             this.button_FindTypeOfWork.Text = "Найти ";
             this.button_FindTypeOfWork.UseVisualStyleBackColor = true;
+            this.button_FindTypeOfWork.Click += new System.EventHandler(this.button_FindTypeOfWork_Click);
             // 
             // label2
             // 

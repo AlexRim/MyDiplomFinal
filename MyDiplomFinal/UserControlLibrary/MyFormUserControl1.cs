@@ -609,5 +609,10 @@ MessageBoxIcon.Question);
         {
           
         }
+
+        private void button_FindClient_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("В разработке");
+        }
     }
 }

@@ -106,6 +106,7 @@
             this.протоколСоглToolStripMenuItem.Name = "протоколСоглToolStripMenuItem";
             this.протоколСоглToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.протоколСоглToolStripMenuItem.Text = "протокол";
+            this.протоколСоглToolStripMenuItem.Click += new System.EventHandler(this.протоколСоглToolStripMenuItem_Click);
             // 
             // коммерческоеПредлToolStripMenuItem
             // 

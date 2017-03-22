@@ -136,6 +136,7 @@
             this.button_FindClient.TabIndex = 8;
             this.button_FindClient.Text = "Найти клиента";
             this.button_FindClient.UseVisualStyleBackColor = true;
+            this.button_FindClient.Click += new System.EventHandler(this.button_FindClient_Click);
             // 
             // button_FindContract
             // 
